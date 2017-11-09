@@ -23,8 +23,12 @@ var connection = mysql.createConnection({
 })
 
 // esse é o mapeamento mais basico
-app.get('/', function (req, res) {
-    res.sendFile('views/index.html' , { root : __dirname});
+app.get('/home', function (req, res) {
+    res.sendFile('views/home.html' , { root : __dirname});
+ });
+
+app.get('/login', function (req, res) {
+    res.sendFile('views/login.html' , { root : __dirname});
  });
 
 //start Server
