@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <link rel="stylesheet" type="text/css" href="semantic.css">
+    <script>
+      $(document).ready(function(){
+        var photo, name, email,password, birthdate, address, phone, contact, food, activ;
+        $("#submit").click(function(){
+          name=$("#name").val();
+	  email=$("#email").val();
+          password=$("#password").val();
+	  photo = $("#photo").val();
+    birthdate = $("#birthdate").val();
+    address = $("#address").val();
+    phone = $("#phone").val();
+    contact = $("#contact").val();
+    activ = $("#activ").val();
+    food = $("#food").val();
+          $.post("http://localhost:3000/signup",{photo: photo, name: name, email: email,password: password, birthdate:birthdate, address:address,phone:phone,contact:contact, food:food, activ:activ}, function(data){
+            if(data==='done')
+              {
+                alert("success");
+              }
+          });
+          });
+        });
+    </script>
+  </head>
+<body>
+    <h1>Sign Up</h1>
+
+	<form action="/signup" method="post">
+        <p>
+            <label for="photo"> Foto
+            </label><br>
+            <input type="file" name="photo" id="photo" />
+        </p>
+
+        <p>
+            <label for="name"> Nome
+            </label><br>
+            <input type="text" name="name" id="name" placeholder="Ex: Maria Joaquina da Silva" />
+        </p>
+
+        <p>
+            <label for="email"> E-mail
+            </label><br>
+            <input type="email" name="email" id="email" placeholder="Ex: mariajs@mariajs.com.br" />
+        </p>
+
+        <p>
+            <label for="password"> Senha
+            </label><br>
+            <input type="password" name="password" id="password" placeholder="*******" />
+        </p>
+        <p>
+            <label for="birthdate"> Data de Nascimento
+            </label><br>
+            <input type="date" name="birthdate" id="birthdate" />
+        </p>
+        <p>
+            <label for="address"> Endereço
+            </label><br>
+            <input type="text" name="address" id="address" placeholder="Ex: Rua das Flores, 201" />
+        </p>
+        <p>
+            <label for="phone"> Telefone
+            </label><br>
+            <input type="text" name="phone" id="phone" placeholder="Ex: (11) 98765-4321" />
+        </p>
+        <p>
+            <label for="contact"> Preferencia de Contato (o que você quer que apareça no seu perfil público)
+            </label><br>
+            <select name="contact">
+            <option value="email">E-mail</option>
+            <option value="phone">Telefone</option>
+            </select>
+        </p>
+        
+<!--         <p>
+            <label for="food"> Preferencias Alimentares
+            </label><br>
+            <select name="food" multiple="" class="ui fluid dropdown">
+            <option value="low_carb">Low Carb</option>
+            <option value="vegano">Veganismo</option>
+            <option value="vegetariano">Vegetarianismo</option>
+            <option value="sem_glutem">Sem Gluten</option>
+            <option value="sem_lactose">Sem Lactose</option>
+            </select>
+        </p>
+        <p>
+            <label for="activ"> Atividades que pratica
+            </label><br>
+            <select name="activ" multiple="" class="ui fluid dropdown">
+            <option value="cross_fit">Crossfit</option>
+            <option value="esporte_coletivo">Esportes Coletivos</option>
+            <option value="esporte_aventura">Esportes de Aventura</option>
+            <option value="luta">Luta</option>
+            <option value="yoga">Yoga</option>
+            </select>
+        </p> -->
+            <input type="submit" value="Submit" />
+
+</form> 
+
+</body>
+</html>

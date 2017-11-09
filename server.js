@@ -18,7 +18,7 @@ app.use(expressValidator());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'adgjlra123',
+    password : '123456',
     database : 'projeto3'
 })
 
@@ -26,6 +26,39 @@ var connection = mysql.createConnection({
 app.get('/', function (req, res) {
     res.sendFile('views/index.html' , { root : __dirname});
  });
+
+app.get('/signup', function(req, res) {
+  res.sendFile('views/cadastro.html' , { root : __dirname});
+ });
+
+app.post('/signup', function(req, res) {
+    var new_user = {
+    foto: req.body.photo,
+    nome : req.body.name,
+    email : req.body.email,
+    senha : req.body.password,
+    nascimento: req.body.birthdate,
+    endereco: req.body.address,
+    telefone: req.body.phone,
+    pref_contato: req.body.contact,
+    //low_carb: req.body.food,
+    //vegano : req.body.food,
+    //vegetariano : req.body.food,
+    //sem_glutem : req.body.food,
+    //sem_lactose : req.body.food,
+    //cross_fit : req.body.activ,
+    //esporte_coletivo : req.body.activ,
+    //esporte_aventura : req.body.activ,
+    //luta : req.body.activ,
+    //yoga : req.body.activ
+}; 
+
+ connection.query("INSERT INTO usuario SET ?", new_user, function (error, results, fields) {	
+    		if (error) throw error;
+    		res.redirect('/');
+  });
+});
+
 
 //start Server
 app.listen(3000, function () {
