@@ -23,7 +23,7 @@ var connection = mysql.createConnection({
 })
 
 // esse é o mapeamento mais basico
-app.get('/home', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile('views/home.html' , { root : __dirname});
  });
 
@@ -45,18 +45,18 @@ app.post('/signup', function(req, res) {
     endereco: req.body.address,
     telefone: req.body.phone,
     pref_contato: req.body.contact,
-    //low_carb: req.body.food,
-    //vegano : req.body.food,
-    //vegetariano : req.body.food,
-    //sem_glutem : req.body.food,
-    //sem_lactose : req.body.food,
-    //cross_fit : req.body.activ,
-    //esporte_coletivo : req.body.activ,
-    //esporte_aventura : req.body.activ,
-    //luta : req.body.activ,
-    //yoga : req.body.activ
+    low_carb: req.body.low_carb,
+    vegano : req.body.vegano,
+    vegetariano : req.body.vegetariano,
+    sem_glutem : req.body.sem_glutem,
+    sem_lactose : req.body.sem_lactose,
+    cross_fit : req.body.cross_fit,
+    esporte_coletivo : req.body.esporte_coletivo,
+    esporte_aventura : req.body.esporte_aventura,
+    luta : req.body.luta,
+    yoga : req.body.yoga
 }; 
-
+console.log(new_user);
  connection.query("INSERT INTO usuario SET ?", new_user, function (error, results, fields) {	
     		if (error) throw error;
     		res.redirect('/');
