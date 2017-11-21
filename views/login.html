@@ -21,7 +21,24 @@
   <link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
   <link rel="stylesheet" type="text/css" href="css/unslider.css" />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var email, senha;
+        $("#submit").click(function(){    
+          email=$("#email").val();
+          senha=$("#senha").val();
+          $.post("http://localhost:3000/login",{email: email, senha: senha}, function(data){
+            if(data==='done')
+              {
+                alert("success");
+              }
+          });
+          });
+        });
+    </script>
+
 </head>
 
 <body data-target="#nino-navbar" data-spy="scroll">
@@ -46,7 +63,7 @@
           <div class="item active">
             <h2 class="nino-sectionHeading">
             <span class="nino-subHeading">Habit Matcher</span>Login</h2>
-            <center><form action="" class="FiltrarForm">
+            <center><form action="/login" method="post" class="FiltrarForm">
               <div class="input-group input-group-lg">
                 <input type="email" class="form-control" placeholder="Email" name="email" required>
                 <input type="password" class="form-control" placeholder="Senha" name="senha" required>

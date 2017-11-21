@@ -18,7 +18,7 @@ app.use(expressValidator());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'adgjlra1',
+    password : 'rangobom971025',
     database : 'projeto3'
 })
 
@@ -63,6 +63,46 @@ console.log(new_user);
   });
 });
 
+app.post('/login', function(req, res) {
+    var email = req.body.email;
+    var senha = req.body.senha;
+
+    console.log(email);
+    console.log(senha);
+    connection.query('SELECT * FROM usuario WHERE email = ?',[email], function (error, results, fields) {
+        if (error) {
+        console.log("error ocurred",error);
+        res.send({
+        "code":400,
+        "failed":"error ocurred"
+        })
+        }
+        else{
+        console.log('The solution is: ', results);
+            if(results.length >0){
+                if(results[0].senha == senha){
+                    console.log({
+                    "code":200,
+                    "success":"login sucessfull"
+                    });
+                    res.redirect('/');
+                }   
+                else{
+                    res.send({
+                    "code":204,
+                    "success":"Email ou senha incorretos"
+                    });
+                }
+            }
+            else{
+                res.send({
+                "code":204,
+                "success":"Email não cadastrado"
+            });
+            }
+        }
+    });
+});
 
 //start Server
 app.listen(3000, function () {
