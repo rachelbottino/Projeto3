@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 
-	<title>Nome do Site</title>
+	<title>Habit Matcher</title>
 	
 	<!-- favicon -->
     <link rel="shortcut icon" href="images/ico/favicon.jpg">
@@ -21,6 +21,26 @@
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
+
+	<script>
+      $(document).ready(function(){
+        var nome, descricao, data, local, activ, food;
+        $("#submit").click(function(){
+          nome=$("#nome").val();
+          descricao=$("#descricao").val();
+          data=$("#data").val();
+      	  local = $("#local").val();
+          activ = $("#activ").val();
+          food = $("#food").val();
+          $.post("http://localhost:3000/",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
+            if(data==='done')
+              {
+                alert("success");
+              }
+          });
+          });
+        });
+    </script>
 	
 </head>
 
@@ -41,7 +61,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="homepage.html">Nome do Site</a>
+						<a class="navbar-brand" href="homepage.html">Habit Matcher</a>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
@@ -69,7 +89,7 @@
 					<div class="item active">
 						<h2 class="nino-sectionHeading">
 						<span class="nino-subHeading">Bem Vindo!</span>
-							ao <br>Nomedosite
+							ao <br>Habit Matcher
 						</h2>
 					</div>
 					<div class="item">
@@ -128,10 +148,8 @@
 					<div class="item">
 						<div class="overlay" href="#">
 							<div class="content">
-								<a class="nino-icon"><i class="mdi mdi-email"></i></a>
-								<p class="nino-sectionDesc"> emailusuario@email.com</p>
-								<a class="nino-icon"><i class="mdi mdi-phone"></i></a>
-								<p class="nino-sectionDesc"> +55 11 98902990</p>
+								<a class="nino-icon" href="edita.html"><i class="mdi mdi-account"></i></a>
+								<p class="nino-sectionDesc"> Editar Perfil</p>
 							</div>
 							<img src="images/usuarios/img-0.jpg" alt="" height="400" width="300">
 						</div>
@@ -195,7 +213,38 @@
     	<div class="container">
     		<h2 class="nino-sectionHeading">
 				<span class="nino-subHeading">Eventos</span>
-				Que você comparecerá
+				Criar Evento
+			</h2>
+			<center><form action="/" method="post" class="FiltrarForm">
+              <div class="input-group input-group-lg">
+              <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
+              <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
+              <label for="data"></label><br><input type="date" name="data" id="data" class="form-control" placeholder="25/10/1997"/>
+              <label for="local"></label><br><input type="text" name="local" id="local" class="form-control" placeholder="Local" />
+              <br>
+              <br><br>
+              <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+              <br>
+              <br>
+              <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br> 
+              <br>
+              <input class="btn btn-success" type="submit" value="Criar Evento"></input>
+              </div>
+            </form></center>
+            <br><br>
+
+    		<h2 class="nino-sectionHeading">
+				Eventos Que Você Criou
 			</h2>
 			<div class="sectionContent">
 				<div class="row">
@@ -216,48 +265,11 @@
 								<a><i class="mdi mdi-run nino-icon"></i>Interesses relacionados ao evento.</a><br>
 								<a><i class="mdi mdi-map-marker nino-icon"></i>Local do Evento</a><br>
 								<a><i class="mdi mdi-account-check nino-icon"></i> 543 confirmados</a>
+								<button class="form-control">Editar</button>
+								<button class="form-control">Apagar</button>
 							</div>
 						</article>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<article>
-							<div class="articleThumb">
-								<a href="#"><img src="images/eventos/img-2.jpg" alt="" height="250" width="400"></a>
-								<div class="date">
-									<span class="number">20</span>
-									<span class="text">Nov</span>
-								</div>
-							</div>
-							<h3 class="articleTitle"><a href="">Aulão de Yoga</a></h3>
-							<p class="articleDesc">
-								Aula de Yoga durante a manhã com barracas de comidas sem glútem e lactose durante o dia!
-							</p>
-							<div class="articleMeta">
-								<a><i class="mdi mdi-star nino-icon"></i>Sem glútem, Sem lactose, Yoga</a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i>Insper</a><br>
-								<a><i class="mdi mdi-account-check nino-icon"></i> 995 confirmados</a>
-							</div>
-						</article>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<article>
-							<div class="articleThumb">
-								<a href="#"><img src="images/eventos/img-3.jpg" alt="" height="250" width="400"></a>
-								<div class="date">
-									<span class="number">01</span>
-									<span class="text">Dez</span>
-								</div>
-							</div>
-							<h3 class="articleTitle"><a href="">Corrida no Parque</a></h3>
-							<p class="articleDesc">
-								Vamos percorrer o o parque ibirapuera e tentar fazer nossos melhores tempos! 
-							</p>
-							<div class="articleMeta">
-								<a><i class="mdi mdi-star nino-icon"></i>Corrida, Caminhada, Atividades externas</a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i>Parque Ibirapuera</a><br>
-								<a><i class="mdi mdi-account-check nino-icon"></i> 1264 confirmados</a>
-							</div>
-						</article>
+
 					</div>
 				</div>
 			</div>
@@ -287,7 +299,7 @@
 			</h2>
 			<form action="" class="FiltrarForm">
 				<div class="input-group input-group-lg">
-					<input type="email" class="form-control" placeholder="Interesse" required>
+					<input type="text" class="form-control" placeholder="Interesse" required>
 					<span class="input-group-btn">
 						<button class="btn btn-success" type="submit">Filtrar</button>
 					</span>
@@ -299,11 +311,11 @@
 			<ul class="nino-portfolioItems">
 				<li class="item">
 					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-1.jpg">
-						<img src="images/usuarios/img-1.jpg" />
+						<img src="images/usuarios/img-1.jpg"/>
 						<div class="overlay">
 							<div class="content">
 								<i class="mdi mdi-account nino-icon"></i>
-								<h4 class="title">Maluma</h4>
+								<h4 class="title" href="user.html">Maluma</h4>
 								<span class="desc">Academia, Crossfit, LowCarb</span>
 							</div>
 						</div>
@@ -314,7 +326,7 @@
 						<img src="images/usuarios/img-2.jpg" />
 						<div class="overlay">
 							<div class="content">
-								<i class="mdi mdi-account nino-icon"></i>
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
 								<h4 class="title">Justin Bieber</h4>
 								<span class="desc">Corrida, Sem Lactose</span>
 							</div>
@@ -326,7 +338,7 @@
 						<img src="images/usuarios/img-3.jpg" />
 						<div class="overlay">
 							<div class="content">
-								<i class="mdi mdi-account nino-icon"></i>
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
 								<h4 class="title">Anitta</h4>
 								<span class="desc">Academia, Dança, LowCarb</span>
 							</div>
@@ -338,7 +350,7 @@
 						<img src="images/usuarios/img-4.jpg"  />
 						<div class="overlay">
 							<div class="content">
-								<i class="mdi mdi-account nino-icon"></i>
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
 								<h4 class="title">Neymar Junior</h4>
 								<span class="desc">Futebol</span>
 							</div>
@@ -350,7 +362,7 @@
 						<img src="images/usuarios/img-5.jpg" />
 						<div class="overlay">
 							<div class="content">
-								<i class="mdi mdi-account nino-icon"></i>
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
 								<h4 class="title">Gabriel Medina</h4>
 								<span class="desc">Surf, Academia, Natação</span>
 							</div>
@@ -362,7 +374,7 @@
 						<img src="images/usuarios/img-6.jpg" />
 						<div class="overlay">
 							<div class="content">
-								<i class="mdi mdi-account nino-icon"></i>
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
 								<h4 class="title">Maya Gabeira</h4>
 								<span class="desc">Surfe, Vegana, Sem glútem</span>
 							</div>
@@ -374,7 +386,7 @@
 						<img src="images/usuarios/img-7.jpg" />
 						<div class="overlay">
 							<div class="content">
-								<i class="mdi mdi-account nino-icon"></i>
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
 								<h4 class="title">Maria Sharapova</h4>
 								<span class="desc">Tenis</span>
 							</div>
@@ -386,6 +398,61 @@
 	</section><!--/#nino-portfolio-->
 	<br>
 	<br>
+
+	 <section id="seus_eventos">
+    	<div class="container">
+    		<h2 class="nino-sectionHeading">
+				<span class="nino-subHeading">Eventos</span>
+				Criados pelos usuários
+			</h2>
+
+			<div class="sectionContent">
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<article>
+							<div class="articleThumb">
+								<a href="#"><img src="images/eventos/img-2.jpg" alt="" height="250" width="400"></a>
+								<div class="date">
+									<span class="number">20</span>
+									<span class="text">Nov</span>
+								</div>
+							</div>
+							<h3 class="articleTitle"><a href="">Aulão de Yoga</a></h3>
+							<p class="articleDesc">
+								Aula de Yoga durante a manhã com barracas de comidas sem glútem e lactose durante o dia!
+							</p>
+							<div class="articleMeta">
+								<a><i class="mdi mdi-star nino-icon"></i>Sem glútem, Sem lactose, Yoga</a><br>
+								<a><i class="mdi mdi-map-marker nino-icon"></i>Insper</a><br>
+								<a><i class="mdi mdi-account-check nino-icon"></i> 995 confirmados</a>
+							</div>
+						</article>
+
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<article>
+							<div class="articleThumb">
+								<a href="#"><img src="images/eventos/img-3.jpg" alt="" height="250" width="400"></a>
+								<div class="date">
+									<span class="number">01</span>
+									<span class="text">Dez</span>
+								</div>
+							</div>
+							<h3 class="articleTitle"><a href="">Corrida no Parque</a></h3>
+							<p class="articleDesc">
+								Vamos percorrer o o parque ibirapuera e tentar fazer nossos melhores tempos! 
+							</p>
+							<div class="articleMeta">
+								<a><i class="mdi mdi-star nino-icon"></i>Corrida, Caminhada, Atividades externas</a><br>
+								<a><i class="mdi mdi-map-marker nino-icon"></i>Parque Ibirapuera</a><br>
+								<a><i class="mdi mdi-account-check nino-icon"></i> 1264 confirmados</a>
+							</div>
+						</article>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </section><!--/#seus_eventos-->
 
  
 	
