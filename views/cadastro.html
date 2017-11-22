@@ -31,11 +31,11 @@
 <body>
     <h1>Sign Up</h1>
 
-	<form action="/signup" method="post">
+	<form action="/signup" method="post" enctype="multipart/form-data">
         <p>
-            <label for="photo"> Foto
-            </label><br>
-            <input type="file" name="photo" id="photo" />
+                                <div class="col-sm-9">
+                                    <input class="form-control" type="file" name="uploaded_image" accept=""/>
+                                </div>
         </p>
 
         <p>

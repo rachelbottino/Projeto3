@@ -4,6 +4,9 @@ var app = express();
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var path = require('path');
+var fs = require('fs');
+var busboy = require("then-busboy");
+var fileUpload = require('express-fileupload');
 
 /*Set EJS template Engine*/
 app.set('views','./views');
@@ -40,31 +43,58 @@ app.get('/criar', function (req, res) {
  });
 
 app.post('/signup', function(req, res) {
+
+    message = '';
+   if(req.method == "POST"){
+
+      if (!req.files)
+                return res.status(400).send('No files were uploaded.');
+
+        var file = req.files.uploaded_image;
+        var img_name=file.name;
+
     var new_user = {
-    foto: req.body.photo,
-    nome : req.body.name,
-    email : req.body.email,
-    senha : req.body.password,
-    nascimento: req.body.birthdate,
-    endereco: req.body.address,
-    telefone: req.body.phone,
-    pref_contato: req.body.contact,
-    low_carb: req.body.low_carb,
-    vegano : req.body.vegano,
-    vegetariano : req.body.vegetariano,
-    sem_glutem : req.body.sem_glutem,
-    sem_lactose : req.body.sem_lactose,
-    cross_fit : req.body.cross_fit,
-    esporte_coletivo : req.body.esporte_coletivo,
-    esporte_aventura : req.body.esporte_aventura,
-    luta : req.body.luta,
-    yoga : req.body.yoga
-}; 
-console.log(new_user);
- connection.query("INSERT INTO usuario SET ?", new_user, function (error, results, fields) {	
-    		if (error) throw error;
-    		res.redirect('/');
-  });
+        foto : img_name,
+        nome : req.body.name,
+        email : req.body.email,
+        senha : req.body.password,
+        nascimento: req.body.birthdate,
+        endereco: req.body.address,
+        telefone: req.body.phone,
+        pref_contato: req.body.contact,
+        low_carb: req.body.low_carb,
+        vegano : req.body.vegano,
+        vegetariano : req.body.vegetariano,
+        sem_glutem : req.body.sem_glutem,
+        sem_lactose : req.body.sem_lactose,
+        cross_fit : req.body.cross_fit,
+        esporte_coletivo : req.body.esporte_coletivo,
+        esporte_aventura : req.body.esporte_aventura,
+        luta : req.body.luta,
+        yoga : req.body.yoga
+    }; 
+
+         if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ||file.mimetype == "image/jpg"){
+                                 
+              file.mv('public/'+file.name, function(error) {
+                             
+                  if (error)
+
+                    return res.status(500).send(error);
+
+                        connection.query("INSERT INTO usuario SET ?", new_user, function(error, results, fields) {
+                            if (error) throw error;
+                            res.redirect('/');
+                            });
+                       });
+          } else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
+          }
+   } else {
+      res.redirect('/');
+   }
+ 
 });
 
 app.post('/login', function(req, res) {
