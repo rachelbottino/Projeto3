@@ -32,7 +32,7 @@
       	  local = $("#local").val();
           activ = $("#activ").val();
           food = $("#food").val();
-          $.post("http://localhost:3000/",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
+          $.post("http://localhost:3000/criar",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
             if(data==='done')
               {
                 alert("success");
@@ -215,7 +215,7 @@
 				<span class="nino-subHeading">Eventos</span>
 				Criar Evento
 			</h2>
-			<center><form action="/" method="post" class="FiltrarForm">
+			<center><form action="/criar" method="post" class="FiltrarForm">
               <div class="input-group input-group-lg">
               <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
               <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
