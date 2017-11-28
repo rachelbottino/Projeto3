@@ -7,7 +7,9 @@ var path = require('path');
 var fs = require('fs');
 var busboy = require("then-busboy");
 var fileUpload = require('express-fileupload');
-
+var alimentar = [];
+var atividades = [];
+var email;
 /*Set EJS template Engine*/
 app.set('views','./views');
 app.set('view engine','ejs');
@@ -21,7 +23,7 @@ app.use(expressValidator());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'rangobom971025',
+    password : 'adgjlra1',
     database : 'projeto3'
 })
 
@@ -98,7 +100,7 @@ app.post('/signup', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-    var email = req.body.email;
+    email = req.body.email;
     var senha = req.body.senha;
 
     console.log(email);
@@ -119,7 +121,40 @@ app.post('/login', function(req, res) {
                     "code":200,
                     "success":"login sucessfull"
                     });
-                    res.redirect('/');
+                    //faz lista de habitos alimentares
+                    if(results[0].low_carb == 's'){
+                        alimentar.push("Low Carb");
+                    }
+                    else if(results[0].vegano == 's'){
+                        alimentar.push("Vegana");
+                    }
+                    else if(results[0].vegetariano == 's'){
+                        alimentar.push("Vegetariana");
+                    }
+                    else if(results[0].sem_glutem == 's'){
+                        alimentar.push("Sem Glúten");
+                    }
+                    else if(results[0].sem_lactose == 's'){
+                        alimentar.push("Sem Lactose");
+                    }
+
+                    //faz lista de atividades físicas
+                    if(results[0].cross_fit == 's'){
+                        atividades.push("Cross Fit");
+                    }
+                    else if(results[0].esporte_coletivo == 's'){
+                        atividades.push("Esportes Coletivos");
+                    }
+                    else if(results[0].esporte_aventura == 's'){
+                        atividades.push("Esportes de Aventura");
+                    }
+                    else if(results[0].luta == 's'){
+                        atividades.push("Luta");
+                    }
+                    else if(results[0].yoga == 's'){
+                        atividades.push("Yoga");
+                    }
+                    res.render('home', {title:"Habit Matcher",data:results, lista_alimentar:alimentar, lista_atividade:atividades});
                 }   
                 else{
                     res.send({
