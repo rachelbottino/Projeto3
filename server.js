@@ -9,7 +9,6 @@ var busboy = require("then-busboy");
 var fileUpload = require('express-fileupload');
 var alimentar = [];
 var atividades = [];
-var email;
 /*Set EJS template Engine*/
 app.set('views','./views');
 app.set('view engine','ejs');
@@ -24,7 +23,7 @@ app.use(fileUpload());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : '123456',
+    password : 'adgjlra1',
     database : 'projeto3'
 })
 
@@ -44,6 +43,21 @@ app.get('/signup', function(req, res) {
 app.get('/criar', function (req, res) {
     res.sendFile('views/criar.html' , { root : __dirname});
  });
+
+app.get('/seus_eventos', function (req, res){
+    res.render('events', {title:"Habit Matcher"});
+    console.log("Na pagina seus eventos...");
+});
+
+app.get('/usuarios', function (req, res){
+    res.render('list_users', {title:"Habit Matcher"});
+    console.log("Na pagina lista usuarios...");
+});
+
+app.get('/eventos', function (req, res){
+    res.render('list_events', {title:"Habit Matcher"});
+    console.log("Na pagina lista eventos...");
+});
 
 app.post('/signup', function(req, res) {
 
@@ -172,6 +186,11 @@ app.post('/login', function(req, res) {
             }
         }
     });
+
+    console.log(alimentar);
+
+
+
 });
 
 app.post('/criar', function(req, res) {

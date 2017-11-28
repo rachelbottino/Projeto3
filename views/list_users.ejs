@@ -68,9 +68,9 @@
 					<div class="nino-menuItem pull-right">
 						<div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="#nino-header">Seu Perfil<span class="sr-only">(current)</span></a></li>
+								<li><a href="login">Seu Perfil</a></li>
 								<li><a href="seus_eventos">Seus Eventos</a></li>
-								<li><a href="usuarios">Encontre Usuários</a></li>
+								<li class="active"><a href="#usuarios">Encontre Usuários<span class="sr-only">(current)</span></a></li>
 								<li><a href="eventos">Encontre Eventos</a></li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
@@ -82,126 +82,115 @@
 			</nav>
 
 			<section id="nino-slider" class="carousel slide container" data-ride="carousel">
-				
-				<!-- Wrapper for slides -->
-				<div class="carousel-inner" role="listbox">
-					<div class="item active">
-						<h2 class="nino-sectionHeading">
-						<span class="nino-subHeading">Bem Vindo!</span>
-							ao <br>Habit Matcher
-						</h2>
-					</div>
-					<div class="item">
-						<h2 class="nino-sectionHeading">
-							<span class="nino-subHeading">Encontre pessoas</span>
-							Com interesses <br>parecidos 
-						</h2>
-					</div>
-					<div class="item">
-						<h2 class="nino-sectionHeading">
-							<span class="nino-subHeading">Crie eventos</span>
-							Para toda a <br>comunidade
-						</h2>
-					</div>
-					<div class="item">
-						<h2 class="nino-sectionHeading">
-							<span class="nino-subHeading">Participe</span>
-							De eventos de<br>outros usuarios
-						</h2>
-					</div>
-				</div>
 
-				<!-- Indicators -->
-				<ol class="carousel-indicators clearfix">
-					<li data-target="#nino-slider" data-slide-to="0" class="active">
-						<div class="inner">	
-						</div>
-					</li>
-					<li data-target="#nino-slider" data-slide-to="1">
-						<div class="inner">
-						</div>
-					</li>
-					<li data-target="#nino-slider" data-slide-to="2">
-						<div class="inner">
-						</div>
-					</li>
-					<li data-target="#nino-slider" data-slide-to="3">
-						<div class="inner">
-						</div>
-					</li>
-				</ol>
-			</section>
-		</div>
-	</header><!--/#header-->
-
-	<!-- Perfil do usuario
-    ================================================== -->
-	<section id="perfil">
+    <section id="usuarios">
 		<div class="container">
 			<h2 class="nino-sectionHeading">
-				<span class="nino-subHeading">Perfil</span>
-				<%=data[0].nome%>
+				<span class="nino-subHeading">Encontre usuários</span>
+				Com interesses parecidos com os seus
 			</h2>
-			<div class="sectionContent">
-				<div class="row nino-hoverEffect">
-					<div class="item">
-						<div class="overlay" href="#">
-							<div class="content">
-								<a class="nino-icon" href="edita.html"><i class="mdi mdi-account"></i></a>
-								<p class="nino-sectionDesc"> Editar Perfil</p>
-							</div>
-							<% for(var i=0; i < data.length; i++) { %>
- 								<img width="250px" height="400px" alt="User Pic" src="http://localhost:3000/<%=data[i].foto%>">
-							<% } %>
-						</div>
-					</div>
+			<form action="" class="FiltrarForm">
+				<div class="input-group input-group-lg">
+					<input type="text" class="form-control" placeholder="Interesse" required>
+					<span class="input-group-btn">
+						<button class="btn btn-success" type="submit">Filtrar</button>
+					</span>
 				</div>
-			</div>
-		</div>	
-	</section>
-
-<h2 class="nino-sectionHeading">Atividades</h2>
-    <section id="interesses">
-    	<div class="container">
-    		<div layout="row" class="verticalStretch">
-    			<%
-    			t_ativ = lista_atividade.length;
-    			for(var i=0; i < t_ativ; i++) { %>
-    			<div class="item">
-    				<div class="text"><%= lista_atividade[i] %></div>
-    			</div>
-    			<% } %>
-
-    			<%for(var j=5-t_ativ; j>0; j--) { %>
-    			<div class="item">
-    				<a href="#" class="nino-icon"><i class="mdi mdi-plus"></i></a>
-    			</div>
-    			<% } %>
-    		</div>
+			</form>
+			<br>
 		</div>
-    </section>
-    <br>
-
-	<h2 class="nino-sectionHeading">Alimentação</h2>
-    <section id="interesses">
-    	<div class="container">
-    		<div layout="row" class="verticalStretch">
-    			<%
-    			t_alim = lista_alimentar.length;
-    			for(var i=0; i < t_alim; i++) { %>
-    			<div class="item">
-    				<div class="text"><%= lista_alimentar[i] %></div>
-    			</div>
-    			<% } %>
-
-    			<%for(var j=5-t_alim; j>0; j--) { %>
-    			<div class="item">
-    				<a href="#" class="nino-icon"><i class="mdi mdi-plus"></i></a>
-    			</div>
-    			<% } %>
-    		</div>
+		<div class="sectionContent">
+			<ul class="nino-portfolioItems">
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-1.jpg">
+						<img src="images/usuarios/img-1.jpg"/>
+						<div class="overlay">
+							<div  href="user.html" class="content">
+								<i href="user.html" class="mdi mdi-account nino-icon"></i>
+								<h4 class="title" href="user.html">Maluma</h4>
+								<span class="desc">Academia, Crossfit, LowCarb</span>
+								<button href="user.html">ver perfil</button>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-2.jpg">
+						<img src="images/usuarios/img-2.jpg" />
+						<div class="overlay">
+							<div class="content">
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
+								<h4 class="title">Justin Bieber</h4>
+								<span class="desc">Corrida, Sem Lactose</span>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-3.jpg">
+						<img src="images/usuarios/img-3.jpg" />
+						<div class="overlay">
+							<div class="content">
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
+								<h4 class="title">Anitta</h4>
+								<span class="desc">Academia, Dança, LowCarb</span>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-4.jpg">
+						<img src="images/usuarios/img-4.jpg"  />
+						<div class="overlay">
+							<div class="content">
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
+								<h4 class="title">Neymar Junior</h4>
+								<span class="desc">Futebol</span>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-5.jpg">
+						<img src="images/usuarios/img-5.jpg" />
+						<div class="overlay">
+							<div class="content">
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
+								<h4 class="title">Gabriel Medina</h4>
+								<span class="desc">Surf, Academia, Natação</span>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-6.jpg">
+						<img src="images/usuarios/img-6.jpg" />
+						<div class="overlay">
+							<div class="content">
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
+								<h4 class="title">Maya Gabeira</h4>
+								<span class="desc">Surfe, Vegana, Sem glútem</span>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="item">
+					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-7.jpg">
+						<img src="images/usuarios/img-7.jpg" />
+						<div class="overlay">
+							<div class="content">
+								<i class="mdi mdi-account nino-icon" href="user.html"></i>
+								<h4 class="title">Maria Sharapova</h4>
+								<span class="desc">Tenis</span>
+							</div>
+						</div>
+					</a>
+				</li>
+			</ul>
 		</div>
-    </section><!--/#perfil-->
+	</section><!--/#nino-portfolio-->
+	<br>
+	<br>
 	
     <!-- Footer
     ================================================== -->
