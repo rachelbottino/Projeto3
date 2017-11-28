@@ -15,21 +15,22 @@ app.set('views','./views');
 app.set('view engine','ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({ extended: true })); //support x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false })); //support x-www-form-urlencoded
 app.use(bodyParser.json());
 app.use(expressValidator());
+app.use(fileUpload());
 
 /*MySql connection*/
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'adgjlra1',
+    password : '123456',
     database : 'projeto3'
 })
 
 // esse é o mapeamento mais basico
 app.get('/', function (req, res) {
-    res.sendFile('views/home.html' , { root : __dirname});
+    res.sendFile('views/login.html' , { root : __dirname});
  });
 
 app.get('/login', function (req, res) {
@@ -49,8 +50,6 @@ app.post('/signup', function(req, res) {
     message = '';
    if(req.method == "POST"){
 
-      if (!req.files)
-                return res.status(400).send('No files were uploaded.');
 
         var file = req.files.uploaded_image;
         var img_name=file.name;
@@ -100,7 +99,7 @@ app.post('/signup', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-    email = req.body.email;
+    var email = req.body.email;
     var senha = req.body.senha;
 
     console.log(email);
@@ -125,16 +124,16 @@ app.post('/login', function(req, res) {
                     if(results[0].low_carb == 's'){
                         alimentar.push("Low Carb");
                     }
-                    else if(results[0].vegano == 's'){
+                    if(results[0].vegano == 's'){
                         alimentar.push("Vegana");
                     }
-                    else if(results[0].vegetariano == 's'){
+                    if(results[0].vegetariano == 's'){
                         alimentar.push("Vegetariana");
                     }
-                    else if(results[0].sem_glutem == 's'){
+                    if(results[0].sem_glutem == 's'){
                         alimentar.push("Sem Glúten");
                     }
-                    else if(results[0].sem_lactose == 's'){
+                    if(results[0].sem_lactose == 's'){
                         alimentar.push("Sem Lactose");
                     }
 
@@ -142,19 +141,21 @@ app.post('/login', function(req, res) {
                     if(results[0].cross_fit == 's'){
                         atividades.push("Cross Fit");
                     }
-                    else if(results[0].esporte_coletivo == 's'){
+                    if(results[0].esporte_coletivo == 's'){
                         atividades.push("Esportes Coletivos");
                     }
-                    else if(results[0].esporte_aventura == 's'){
+                    if(results[0].esporte_aventura == 's'){
                         atividades.push("Esportes de Aventura");
                     }
-                    else if(results[0].luta == 's'){
+                    if(results[0].luta == 's'){
                         atividades.push("Luta");
                     }
-                    else if(results[0].yoga == 's'){
+                    if(results[0].yoga == 's'){
                         atividades.push("Yoga");
                     }
                     res.render('home', {title:"Habit Matcher",data:results, lista_alimentar:alimentar, lista_atividade:atividades});
+                    alimentar = [];
+                    atividades = [];
                 }   
                 else{
                     res.send({
