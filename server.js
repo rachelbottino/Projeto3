@@ -47,26 +47,16 @@ app.get('/criar', function (req, res) {
  });
 
 app.get('/seus_eventos', function (req, res){
-    res.render('events', {title:"Habit Matcher"});
+    //res.render('events', {title:"Habit Matcher"});
     console.log("Na pagina seus eventos...");
     console.log("Id do usuario:");
     console.log(user_id);
     connection.query('SELECT * FROM evento WHERE usuario_id = ?',[user_id], function (error, events, fields) {
-        if (error) {
-            console.log("error ocurred",error);
-            res.send({
-            "code":400,
-            "failed":"error ocurred"
-            })
-        }
-        else{
-        console.log('The solution is: ', events);            
+        if (error) throw error;
+        console.log('Eventos pelo id do usuario: ', events);            
         console.log("Quantidade de eventos do usuario:");
         console.log(events.length);
-        if (error) throw error;
-        res.render('events', {title:"Habit Matcher",events:events});
-            
-            }
+        res.render('events', {events:events});
     });
 
 });

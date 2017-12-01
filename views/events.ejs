@@ -20,28 +20,7 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.css" />
-
-	<script>
-      $(document).ready(function(){
-        var nome, descricao, data, local, activ, food;
-        $("#submit").click(function(){
-          nome=$("#nome").val();
-          descricao=$("#descricao").val();
-          data=$("#data").val();
-      	  local = $("#local").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/criar",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
-            if(data==='done')
-              {
-                alert("success");
-              }
-          });
-          });
-        });
-    </script>
-	
+	<link rel="stylesheet" type="text/css" href="css/template.css" />	
 </head>
 
 <body data-target="#nino-navbar" data-spy="scroll">
@@ -141,7 +120,7 @@
 			</h2>
 			<div class="sectionContent">
 				<div class="row">
-					<%for(var evento=0; evento < events.length; evento++) { %>
+					<% for(var evento=0; evento < events.length; evento++) { %>
 					<div class="col-md-4 col-sm-4">
 						<article>
 							<div class="articleThumb">
@@ -151,13 +130,13 @@
 									<span class="text">Nov</span>
 								</div>
 							</div>
-							<h3 class="articleTitle"><a href=""><%=events[0].nome%></a></h3>
+							<h3 class="articleTitle"><a href=""><%=events[evento].nome%></a></h3>
 							<p class="articleDesc">
-								<%=events[0].descricao%>
+								<%=events[evento].descricao%>
 							</p>
 							<div class="articleMeta">
 								<a><i class="mdi mdi-run nino-icon"></i>Interesses relacionados ao evento.</a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[0].endereco%></a><br>
+								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].endereco%></a><br>
 								<a><i class="mdi mdi-account-check nino-icon"></i> 543 confirmados</a>
 								<button class="form-control">Editar</button>
 								<button class="form-control">Apagar</button>
