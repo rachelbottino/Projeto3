@@ -20,8 +20,30 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.css" />	
+	<link rel="stylesheet" type="text/css" href="css/template.css" />
+
+	<script>
+      $(document).ready(function(){
+        var nome, descricao, data, local, activ, food;
+        $("#submit").click(function(){
+          nome=$("#nome").val();
+          descricao=$("#descricao").val();
+          data=$("#data").val();
+      	  local = $("#local").val();
+          activ = $("#activ").val();
+          food = $("#food").val();
+          $.post("http://localhost:3000/novo_evento",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
+            if(data==='done')
+              {
+                alert("success");
+              }
+          });
+          });
+        });
+    </script>
+
 </head>
+
 
 <body data-target="#nino-navbar" data-spy="scroll">
 
@@ -85,99 +107,35 @@
     	<div class="container">
     		<h2 class="nino-sectionHeading">
 				<span class="nino-subHeading">Eventos</span>
-			</h2>
-            <br>
-            <h2 href="novo_evento" class="nino-sectionHeading"><a href="novo_evento">
 				Criar Evento
-			</a></h2>
-			<br>
-
-    		<h2 class="nino-sectionHeading">
-				Eventos Que Você Criou
 			</h2>
-			<div class="sectionContent">
-				<div class="row">
-					<% for(var evento=0; evento < events.length; evento++) { %>
-					<div class="col-md-4 col-sm-4">
-						<article>
-							<div class="articleThumb">
-								<a href="#"><img src="images/eventos/img-1.jpg" alt="" height="250" width="400"></a>
-								<div class="date">
-									<span class="number">7</span>
-									<span class="text">Nov</span>
-								</div>
-							</div>
-							<h3 class="articleTitle"><a href=""><%=events[evento].nome%></a></h3>
-							<p class="articleDesc">
-								<%=events[evento].descricao%>
-							</p>
-							<div class="articleMeta">
-							<% 
-							var interesses_evento = [];
-
-							if(events[evento].low_carb == 's'){
-                				interesses_evento.push(" Low Carb");
-            				}
-				            if(events[evento].vegano == 's'){
-				                interesses_evento.push(" Vegana");
-				            }
-				            if(events[evento].vegetariano == 's'){
-				                interesses.push(" Vegetariana");
-				            }
-				            if(events[evento].sem_glutem == 's'){
-				                interesses_evento.push(" Sem Glúten");
-				            }
-				            if(events[evento].sem_lactose == 's'){
-				                interesses_evento.push(" Sem Lactose");
-				            }
-				            if(events[evento].cross_fit == 's'){
-				                interesses_evento.push(" Cross Fit");
-				            }
-				            if(events[evento].esporte_coletivo == 's'){
-				                interesses_evento.push(" Esportes Coletivos");
-				            }
-				            if(events[evento].esporte_aventura == 's'){
-				                interesses_evento.push(" Esportes de Aventura");
-				            }
-				            if(events[evento].luta == 's'){
-				                interesses_evento.push(" Luta");
-				            }
-				            if(events[evento].yoga == 's'){
-				                interesses_evento.push(" Yoga");
-				            }
-				            %>
-								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
-								<a><i class="mdi mdi-account-check nino-icon"></i><%=events[evento].data%></a>
-								<button class="form-control" value="<%=events[evento].evento_id%>">Editar</button>
-								<button class="form-control" value="<%=events[evento].evento_id%>">Apagar</button>
-							</div>
-						</article>
-					</div>
-					<%
-					interesses_evento = [];
-					}%>
-				</div>
-			<br>
-			<br>
-			</div>
-    	</div>
-    </section><!--/#seus_eventos-->
-
-       <!-- Map
-    ================================================== -->
-    <section id="nino-map">
-    	<div class="container">
-    		<h2 class="nino-sectionHeading">
-    			<i class="mdi mdi-map-marker nino-icon"></i>
-    			<span class="text">Open map</span>
-    			<span class="text" style="display: none;">Close map</span>
-    		</h2>
-    		<div class="mapWrap">
-	    		<iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d79466.26604960626!2d-0.19779784176715043!3d51.50733004537892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!3m2!1d51.5073509!2d-0.1277583!5e0!3m2!1sen!2s!4v1469206441744" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
-	    	</div>
-    	</div>
-    </section><!--/#nino-map--> 
+			<center><form action="/novo_evento" method="post" class="FiltrarForm">
+              <div class="input-group input-group-lg">
+              <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
+              <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
+              <label for="data"></label><br><input type="date" name="data" id="data" class="form-control" placeholder="25/10/1997"/>
+              <label for="local"></label><br><input type="text" name="local" id="local" class="form-control" placeholder="Local" />
+              <br>
+              <br><br>
+              <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+              <br>
+              <br>
+              <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br> 
+              <br>
+              <input class="btn btn-success" type="submit" value="Criar Evento"></input>
+              </div>
+            </form></center>
+            <br><br>
 	
     <!-- Footer
     ================================================== -->

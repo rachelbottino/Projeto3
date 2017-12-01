@@ -21,26 +21,6 @@
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
-
-	<script>
-      $(document).ready(function(){
-        var nome, descricao, data, local, activ, food;
-        $("#submit").click(function(){
-          nome=$("#nome").val();
-          descricao=$("#descricao").val();
-          data=$("#data").val();
-      	  local = $("#local").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/criar",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
-            if(data==='done')
-              {
-                alert("success");
-              }
-          });
-          });
-        });
-    </script>
 	
 </head>
 

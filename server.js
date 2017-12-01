@@ -10,6 +10,7 @@ var fileUpload = require('express-fileupload');
 var alimentar = [];
 var atividades = [];
 var interesses = [];
+var interesses_evento = [];
 var user_id;
 /*Set EJS template Engine*/
 app.set('views','./views');
@@ -42,8 +43,8 @@ app.get('/signup', function(req, res) {
   res.sendFile('views/cadastra.html' , { root : __dirname});
  });
 
-app.get('/criar', function (req, res) {
-    res.sendFile('views/criar.html' , { root : __dirname});
+app.get('/novo_evento', function (req, res) {
+    res.sendFile('views/cria_evento.html' , { root : __dirname});
  });
 
 app.get('/seus_eventos', function (req, res){
@@ -219,7 +220,9 @@ app.post('/eventos', function(req, res){
 
 });
 
-app.post('/criar', function(req, res) {
+app.post('/novo_evento', function(req, res) {
+    console.log("novo evento usuario id:");
+    console.log(user_id);
     var new_evento = {
         nome:req.body.nome,
         descricao:req.body.descricao,
@@ -234,13 +237,16 @@ app.post('/criar', function(req, res) {
         esporte_coletivo : req.body.esporte_coletivo,
         esporte_aventura : req.body.esporte_aventura,
         luta : req.body.luta,
-        yoga : req.body.yoga
+        yoga : req.body.yoga,
+        usuario_id : user_id
 };
 
+
 console.log(new_evento);
+console.log(user_id);
  connection.query("INSERT INTO evento SET ?", new_evento, function (error, results, fields) {   
-            if (error) throw error;
-            res.redirect('/');
+        if (error) throw error;
+        res.redirect('/seus_eventos');
   });
 });
 
