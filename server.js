@@ -9,6 +9,8 @@ var busboy = require("then-busboy");
 var fileUpload = require('express-fileupload');
 var alimentar = [];
 var atividades = [];
+var interesses = [];
+var user_id;
 /*Set EJS template Engine*/
 app.set('views','./views');
 app.set('view engine','ejs');
@@ -47,6 +49,29 @@ app.get('/criar', function (req, res) {
 app.get('/seus_eventos', function (req, res){
     res.render('events', {title:"Habit Matcher"});
     console.log("Na pagina seus eventos...");
+    console.log(user_id);
+    connection.query('SELECT * FROM evento WHERE usuario_id = ?',[user_id], function (error, events, fields) {
+        if (error) {
+            console.log("error ocurred",error);
+            res.send({
+            "code":400,
+            "failed":"error ocurred"
+            })
+        }
+        else{
+        console.log('The solution is: ', events);
+            if(results.length >0){
+                res.render('events', {title:"Habit Matcher",eventos:events});
+            }
+            else{
+                res.send({
+                "code":204,
+                "success":"listando eventos"
+            });
+            }
+        }
+    });
+
 });
 
 app.get('/usuarios', function (req, res){
@@ -134,38 +159,50 @@ app.post('/login', function(req, res) {
                     "code":200,
                     "success":"login sucessfull"
                     });
+                    //guarda id do usuario logado
+                    user_id = results[0].usuario_id;
                     //faz lista de habitos alimentares
                     if(results[0].low_carb == 's'){
                         alimentar.push("Low Carb");
+                        interesses.push("low_carb");
                     }
                     if(results[0].vegano == 's'){
                         alimentar.push("Vegana");
+                        interesses.push("vegano");
                     }
                     if(results[0].vegetariano == 's'){
                         alimentar.push("Vegetariana");
+                        interesses.push("vegetariano");
                     }
                     if(results[0].sem_glutem == 's'){
                         alimentar.push("Sem Glúten");
+                        interesses.push("sem_glutem");
                     }
                     if(results[0].sem_lactose == 's'){
                         alimentar.push("Sem Lactose");
+                        interesses.push("sem_lactose");
                     }
 
                     //faz lista de atividades físicas
                     if(results[0].cross_fit == 's'){
                         atividades.push("Cross Fit");
+                        interesses.push("cross_fit");
                     }
                     if(results[0].esporte_coletivo == 's'){
                         atividades.push("Esportes Coletivos");
+                        interesses.push("esporte_coletivo");
                     }
                     if(results[0].esporte_aventura == 's'){
                         atividades.push("Esportes de Aventura");
+                        interesses.push("esporte_aventura");
                     }
                     if(results[0].luta == 's'){
                         atividades.push("Luta");
+                        interesses.push("luta");
                     }
                     if(results[0].yoga == 's'){
                         atividades.push("Yoga");
+                        interesses.push("yoga");
                     }
                     res.render('home', {title:"Habit Matcher",data:results, lista_alimentar:alimentar, lista_atividade:atividades});
                     alimentar = [];
@@ -186,10 +223,36 @@ app.post('/login', function(req, res) {
             }
         }
     });
-
     console.log(alimentar);
+});
 
+app.post('/seus_eventos', function(req, rs){
+    console.log(user_id);
+    connection.query('SELECT * FROM evento WHERE usuario_id = ?',[user_id], function (error, events, fields) {
+        if (error) {
+            console.log("error ocurred",error);
+            res.send({
+            "code":400,
+            "failed":"error ocurred"
+            })
+        }
+        else{
+        console.log('The solution is: ', events);
+            if(results.length >0){
+                res.render('events', {title:"Habit Matcher",eventos:events});
+            }
+            else{
+                res.send({
+                "code":204,
+                "success":"listando eventos"
+            });
+            }
+        }
+    });
+});
 
+app.post('/eventos', function(req, res){
+    console.log(interesses);
 
 });
 
