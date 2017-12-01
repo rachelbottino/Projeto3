@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+
+  <title>Nome do Site</title>
+  
+  <!-- favicon -->
+    <link rel="shortcut icon" href="images/ico/favicon.jpg">
+    <link rel="GG" sizes="144x144" href="images/ico/GG.png">
+    <link rel="G" sizes="114x114" href="images/ico/G.png">
+    <link rel="M" sizes="72x72" href="images/ico/M.png">
+    <link rel="P" href="images/ico/P.png">
+  
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
+  <link rel="stylesheet" type="text/css" href="css/unslider.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+  <script>
+      $(document).ready(function(){
+        var photo, name, email,password, birthdate, address, phone, contact, food, activ;
+        $("#submit").click(function(){
+          name=$("#name").val();
+          email=$("#email").val();
+          password=$("#password").val();
+          photo = $("#photo").val();
+          birthdate = $("#birthdate").val();
+          address = $("#address").val();
+          phone = $("#phone").val();
+          contact = $("#contact").val();
+          activ = $("#activ").val();
+          food = $("#food").val();
+          $.post("http://localhost:3000/signup",{photo: photo, name: name, email: email,password: password, birthdate:birthdate, address:address,phone:phone,contact:contact, food:food, activ:activ}, function(data){
+              if(data==='done'){
+                  alert("success");
+              }
+            });
+          });
+        });
+    </script>
+  
+</head>
+
+<body data-target="#nino-navbar" data-spy="scroll">
+
+  <!-- Header
+    ================================================== -->
+  <header id="nino-header">
+    <div id="nino-headerInner">         
+      <nav id="nino-navbar" class="navbar navbar-default" role="navigation">
+        <div class="container">
+          <div class="nino-menuItem pull-right">
+            <div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
+            </div><!-- /.navbar-collapse -->
+          </div>
+        </div><!-- /.container-fluid -->
+      </nav>
+
+      <section id="nino-slider" class="carousel slide container" data-ride="carousel">
+            <h2 class="nino-sectionHeading">
+            <span class="nino-subHeading">Habit Matcher</span>Cadastro</h2>
+      </section>
+    </div>
+  </header>
+
+  <section id="perfil">
+    <div class="container">
+      <center>
+        <form action="/signup" method="post" class="FiltrarForm">
+          <div class="input-group input-group-lg">
+           <label for="photo"></label><input type="file" class="form-control" placeholder="Foto" name="foto" id="foto">
+           <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="nome" id="nome" required>
+           <label for="email"></label><input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+           <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="senha" id="senha" required>
+          <label for="birthdate"></label><input type="date" class="form-control" placeholder="Nascimento" name="nascimento" id="nascimento" required>
+           <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="endereço" id="endereço" required>
+           <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="telefone" id="telefone" required>  
+           <br>
+          <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+          <br>
+          <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br>
+
+          <br>
+          <input class="btn btn-success" type="submit" value="Cadastrar!"></input>
+          </div>
+        </form>
+      </center>
+    </div>
+  </section>
+  </body>
+  </html>

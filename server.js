@@ -39,7 +39,7 @@ app.get('/login', function (req, res) {
  });
 
 app.get('/signup', function(req, res) {
-  res.sendFile('views/cadastro.html' , { root : __dirname});
+  res.sendFile('views/cadastra.html' , { root : __dirname});
  });
 
 app.get('/criar', function (req, res) {
@@ -63,7 +63,8 @@ app.get('/seus_eventos', function (req, res){
         console.log('The solution is: ', events);            
         console.log("Quantidade de eventos do usuario:");
         console.log(events.length);
-        res.render('events', {title:"Habit Matcher",eventos:events});
+        if (error) throw error;
+        res.render('events', {title:"Habit Matcher",events:events});
             
             }
     });
@@ -222,30 +223,6 @@ app.post('/login', function(req, res) {
     console.log(alimentar);
 });
 
-app.post('/seus_eventos', function(req, rs){
-    console.log(user_id);
-    connection.query('SELECT * FROM evento WHERE usuario_id = ?',[user_id], function (error, events, fields) {
-        if (error) {
-            console.log("error ocurred",error);
-            res.send({
-            "code":400,
-            "failed":"error ocurred"
-            })
-        }
-        else{
-        console.log('The solution is: ', events);
-            if(results.length >0){
-                res.render('events', {title:"Habit Matcher",eventos:events});
-            }
-            else{
-                res.send({
-                "code":204,
-                "success":"listando eventos"
-            });
-            }
-        }
-    });
-});
 
 app.post('/eventos', function(req, res){
     console.log(interesses);
