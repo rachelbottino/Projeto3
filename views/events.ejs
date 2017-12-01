@@ -68,10 +68,22 @@
 					<div class="nino-menuItem pull-right">
 						<div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
 							<ul class="nav navbar-nav">
-								<li><a href="login">Seu Perfil</a></li>
+								<li><a id="home" href="login">Seu Perfil</a></li>
+								<script type="text/javascript">
+									document.getElementById("home").onclick = function () {
+    								location.href = "home";
+								};</script>
 								<li class="active"><a href="#seus_eventos">Seus Eventos<span class="sr-only">(current)</span></a></li>
-								<li><a href="usuarios">Encontre Usuários</a></li>
-								<li><a href="eventos">Encontre Eventos</a></li>
+								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
+								<script type="text/javascript">
+								document.getElementById("usuarios").onclick = function () {
+    								location.href = "usuarios";
+								};</script>
+								<li><a id="eventos" href="eventos">Encontre Eventos</a></li>
+								<script type="text/javascript">
+								document.getElementById("eventos").onclick = function () {
+    								location.href = "eventos";
+								};</script>
 							</ul>
 						</div><!-- /.navbar-collapse -->
 						<ul class="nino-iconsGroup nav navbar-nav">
