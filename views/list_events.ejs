@@ -87,7 +87,11 @@
 							</ul>
 						</div><!-- /.navbar-collapse -->
 						<ul class="nino-iconsGroup nav navbar-nav">
-							<li><a href="#" class="nino-search"><i class="mdi mdi-logout nino-icon"></i></a></li>
+							<li><a id="login" href="#" class="nino-search"><i class="mdi mdi-logout nino-icon"></i></a></li>
+							<script type="text/javascript">
+								document.getElementById("login").onclick = function () {
+    								location.href = "login";
+								};</script>
 						</ul>
 					</div>
 				</div><!-- /.container-fluid -->
