@@ -135,15 +135,51 @@
 								<%=events[evento].descricao%>
 							</p>
 							<div class="articleMeta">
-								<a><i class="mdi mdi-run nino-icon"></i>Interesses relacionados ao evento.</a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].endereco%></a><br>
-								<a><i class="mdi mdi-account-check nino-icon"></i> 543 confirmados</a>
-								<button class="form-control">Editar</button>
-								<button class="form-control">Apagar</button>
+							<% 
+							var interesses_evento = [];
+
+							if(events[evento].low_carb == 's'){
+                				interesses_evento.push(" Low Carb");
+            				}
+				            if(events[evento].vegano == 's'){
+				                interesses_evento.push(" Vegana");
+				            }
+				            if(events[evento].vegetariano == 's'){
+				                interesses.push(" Vegetariana");
+				            }
+				            if(events[evento].sem_glutem == 's'){
+				                interesses_evento.push(" Sem Glúten");
+				            }
+				            if(events[evento].sem_lactose == 's'){
+				                interesses_evento.push(" Sem Lactose");
+				            }
+				            if(events[evento].cross_fit == 's'){
+				                interesses_evento.push(" Cross Fit");
+				            }
+				            if(events[evento].esporte_coletivo == 's'){
+				                interesses_evento.push(" Esportes Coletivos");
+				            }
+				            if(events[evento].esporte_aventura == 's'){
+				                interesses_evento.push(" Esportes de Aventura");
+				            }
+				            if(events[evento].luta == 's'){
+				                interesses_evento.push(" Luta");
+				            }
+				            if(events[evento].yoga == 's'){
+				                interesses_evento.push(" Yoga");
+				            }
+				            %>
+								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
+								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
+								<a><i class="mdi mdi-account-check nino-icon"></i><%=events[evento].data%></a>
+								<button class="form-control" value="<%=events[evento].evento_id%>">Editar</button>
+								<button class="form-control" value="<%=events[evento].evento_id%>">Apagar</button>
 							</div>
 						</article>
 					</div>
-					<%}%>
+					<%
+					interesses_evento = [];
+					}%>
 				</div>
 			</div>
     	</div>

@@ -47,10 +47,10 @@ app.get('/criar', function (req, res) {
  });
 
 app.get('/seus_eventos', function (req, res){
-    //res.render('events', {title:"Habit Matcher"});
     console.log("Na pagina seus eventos...");
     console.log("Id do usuario:");
     console.log(user_id);
+    console.log(interesses);
     connection.query('SELECT * FROM evento WHERE usuario_id = ?',[user_id], function (error, events, fields) {
         if (error) throw error;
         console.log('Eventos pelo id do usuario: ', events);            
