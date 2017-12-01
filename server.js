@@ -49,6 +49,7 @@ app.get('/criar', function (req, res) {
 app.get('/seus_eventos', function (req, res){
     res.render('events', {title:"Habit Matcher"});
     console.log("Na pagina seus eventos...");
+    console.log("Id do usuario:");
     console.log(user_id);
     connection.query('SELECT * FROM evento WHERE usuario_id = ?',[user_id], function (error, events, fields) {
         if (error) {
@@ -59,17 +60,12 @@ app.get('/seus_eventos', function (req, res){
             })
         }
         else{
-        console.log('The solution is: ', events);
-            if(events.length >0){
-                res.render('events', {title:"Habit Matcher",eventos:events});
+        console.log('The solution is: ', events);            
+        console.log("Quantidade de eventos do usuario:");
+        console.log(events.length);
+        res.render('events', {title:"Habit Matcher",eventos:events});
+            
             }
-            else{
-                res.send({
-                "code":204,
-                "success":"listando eventos"
-            });
-            }
-        }
     });
 
 });
