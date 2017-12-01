@@ -60,7 +60,7 @@ app.get('/seus_eventos', function (req, res){
         }
         else{
         console.log('The solution is: ', events);
-            if(results.length >0){
+            if(events.length >0){
                 res.render('events', {title:"Habit Matcher",eventos:events});
             }
             else{
