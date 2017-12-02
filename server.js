@@ -243,7 +243,6 @@ app.post('/novo_evento', function(req, res) {
 
 
 console.log(new_evento);
-console.log(user_id);
  connection.query("INSERT INTO evento SET ?", new_evento, function (error, results, fields) {   
         if (error) throw error;
         res.redirect('/seus_eventos');

@@ -102,10 +102,12 @@
 						<article>
 							<div class="articleThumb">
 								<a href="#"><img src="images/eventos/img-1.jpg" alt="" height="250" width="400"></a>
+								<!--
 								<div class="date">
 									<span class="number">7</span>
 									<span class="text">Nov</span>
 								</div>
+								-->
 							</div>
 							<h3 class="articleTitle"><a href=""><%=events[evento].nome%></a></h3>
 							<p class="articleDesc">
@@ -148,7 +150,7 @@
 				            %>
 								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
 								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
-								<a><i class="mdi mdi-account-check nino-icon"></i><%=events[evento].data%></a>
+								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
 								<button class="form-control" value="<%=events[evento].evento_id%>">Editar</button>
 								<button class="form-control" value="<%=events[evento].evento_id%>">Apagar</button>
 							</div>
@@ -174,7 +176,12 @@
     			<span class="text" style="display: none;">Close map</span>
     		</h2>
     		<div class="mapWrap">
-	    		<iframe src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d79466.26604960626!2d-0.19779784176715043!3d51.50733004537892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C+UK!3m2!1d51.5073509!2d-0.1277583!5e0!3m2!1sen!2s!4v1469206441744" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+    			<iframe
+  				width="600"
+  				height="450"
+  				frameborder="0" style="border:0"
+  				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDOx1AA-PnUiKf-9YGL8Ozx1hshfwnTNlk&q=Insper" allowfullscreen>
+				</iframe>
 	    	</div>
     	</div>
     </section><!--/#nino-map--> 
