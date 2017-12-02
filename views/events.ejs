@@ -151,8 +151,10 @@
 								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
 								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
 								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
-								<button class="form-control" value="<%=events[evento].evento_id%>">Editar</button>
-								<button class="form-control" value="<%=events[evento].evento_id%>">Apagar</button>
+								<form class="FiltrarForm" action="/editar_evento">
+								<button class="form-control" class="btn btn-success" value="<%=events[evento].evento_id%>">Editar</button>
+								<button class="form-control" class="btn btn-success" value="<%=events[evento].evento_id%>">Apagar</button>
+								</form>
 							</div>
 						</article>
 					</div>

@@ -22,26 +22,6 @@
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
 
-	<script>
-      $(document).ready(function(){
-        var nome, descricao, data, local, activ, food;
-        $("#submit").click(function(){
-          nome=$("#nome").val();
-          descricao=$("#descricao").val();
-          data=$("#data").val();
-      	  local = $("#local").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/criar",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
-            if(data==='done')
-              {
-                alert("success");
-              }
-          });
-          });
-        });
-    </script>
-	
 </head>
 
 <body data-target="#nino-navbar" data-spy="scroll">
@@ -105,9 +85,21 @@
 				<span class="nino-subHeading">Encontre usuários</span>
 				Com interesses parecidos com os seus
 			</h2>
-			<form action="" class="FiltrarForm">
+			<form action="usuarios" class="FiltrarForm" method="post">
 				<div class="input-group input-group-lg">
-					<input type="text" class="form-control" placeholder="Interesse" required>
+					
+					<select class="form-control" placeholder="Interesse" name="filtro">
+						<option value="low_carb">Low Carb</option>
+						<option value="vegano">Vegano</option>
+						<option value="vegetariano">Vegetariano</option>
+						<option value="sem_glutem">Sem glúten</option>
+						<option value="sem_lactose">Sem lactose</option>
+						<option value="cross_fit">Cross fit</option>
+						<option value="esporte_coletivo">Esporte coletivo</option>
+						<option value="esporte_aventura">Esporte de aventura</option>
+						<option value="luta">Luta</option>
+						<option value="yoga">Yoga</option>
+					</select>
 					<span class="input-group-btn">
 						<button class="btn btn-success" type="submit">Filtrar</button>
 					</span>

@@ -14,6 +14,7 @@ var interesses_evento = [];
 var interesses_usuario = [];
 var usuarios = [];
 var user_id;
+var filtro;
 /*Set EJS template Engine*/
 app.set('views','./views');
 app.set('view engine','ejs');
@@ -53,8 +54,8 @@ app.get('/perfil', function(req, res) {
         if (error) throw error;
         console.log('usuario: ', results);
         res.render('home', {data:results, lista_alimentar:alimentar, lista_atividade:atividades});
-        alimentar = [];
-        atividades = [];
+        //alimentar = [];
+        //atividades = [];
     });
     
 });
@@ -88,6 +89,7 @@ app.get('/usuarios', function (req, res){
         res.render('list_users', {users:users});
     });
 });
+
 
 app.get('/eventos', function (req, res){
     console.log("Na pagina lista eventos...");

@@ -21,8 +21,29 @@
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
-	
+
+	<script>
+      $(document).ready(function(){
+        var nome, descricao, data, local, activ, food;
+        $("#submit").click(function(){
+          nome=$("#nome").val();
+          descricao=$("#descricao").val();
+          data=$("#data").val();
+      	  local = $("#local").val();
+          activ = $("#activ").val();
+          food = $("#food").val();
+          $.post("http://localhost:3000/novo_evento",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
+            if(data==='done')
+              {
+                alert("success");
+              }
+          });
+          });
+        });
+    </script>
+
 </head>
+
 
 <body data-target="#nino-navbar" data-spy="scroll">
 
@@ -41,7 +62,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="homepage.html">Habit Matcher</a>
+						<a class="navbar-brand" href="home.ejs">Habit Matcher</a>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,20 +71,20 @@
 							<ul class="nav navbar-nav">
 								<li><a id="home" href="login">Seu Perfil</a></li>
 								<script type="text/javascript">
-								document.getElementById("home").onclick = function () {
-    								location.href = "perfil";
+									document.getElementById("home").onclick = function () {
+    								location.href = "home";
 								};</script>
-								<li><a id="seus_eventos" href="seus_eventos">Seus Eventos</a></li>
-								<script type="text/javascript">
-								document.getElementById("seus_eventos").onclick = function () {
-    								location.href = "seus_eventos";
-								};</script>
+								<li class="active"><a href="#seus_eventos">Seus Eventos<span class="sr-only">(current)</span></a></li>
 								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
 								<script type="text/javascript">
 								document.getElementById("usuarios").onclick = function () {
     								location.href = "usuarios";
 								};</script>
-								<li class="active"><a href="#eventos">Encontre Eventos<span class="sr-only">(current)</span></a></li>
+								<li><a id="eventos" href="eventos">Encontre Eventos</a></li>
+								<script type="text/javascript">
+								document.getElementById("eventos").onclick = function () {
+    								location.href = "eventos";
+								};</script>
 							</ul>
 						</div><!-- /.navbar-collapse -->
 						<ul class="nino-iconsGroup nav navbar-nav">
@@ -76,106 +97,45 @@
 					</div>
 				</div><!-- /.container-fluid -->
 			</nav>
-			</div>
-			</header>
+		</div>
+	</header><!--/#header-->
 
-	 <section id="usuarios">
+	<!-- Eventos
+    ================================================== -->    
+
+     <section id="seus_eventos">
     	<div class="container">
     		<h2 class="nino-sectionHeading">
 				<span class="nino-subHeading">Eventos</span>
-				Criados pelos usuários
+				Editar Evento
 			</h2>
-
-			<form action="eventos" class="FiltrarForm" method="post">
-				<div class="input-group input-group-lg">
-					
-					<select class="form-control" placeholder="Interesse" name="filtro">
-						<option value="low_carb">Low Carb</option>
-						<option value="vegano">Vegano</option>
-						<option value="vegetariano">Vegetariano</option>
-						<option value="sem_glutem">Sem glúten</option>
-						<option value="sem_lactose">Sem lactose</option>
-						<option value="cross_fit">Cross fit</option>
-						<option value="esporte_coletivo">Esporte coletivo</option>
-						<option value="esporte_aventura">Esporte de aventura</option>
-						<option value="luta">Luta</option>
-						<option value="yoga">Yoga</option>
-					</select>
-					<span class="input-group-btn">
-						<button class="btn btn-success" type="submit">Filtrar</button>
-					</span>
-				</div>
-			</form>
-
-			<div class="sectionContent">
-				<div class="row"><% for(var evento=0; evento < events.length; evento++) { %>
-					<div class="col-md-4 col-sm-4">
-						<article>
-							<div class="articleThumb">
-								<a href="#"><img src="images/eventos/img-1.jpg" alt="" height="250" width="400"></a>
-								<!--
-								<div class="date">
-									<span class="number">7</span>
-									<span class="text">Nov</span>
-								</div>
-								-->
-							</div>
-							<h3 class="articleTitle"><a href=""><%=events[evento].nome%></a></h3>
-							<p class="articleDesc">
-								<%=events[evento].descricao%>
-							</p>
-							<div class="articleMeta">
-							<% 
-							var interesses_evento = [];
-
-							if(events[evento].low_carb == 's'){
-                				interesses_evento.push(" Low Carb");
-            				}
-				            if(events[evento].vegano == 's'){
-				                interesses_evento.push(" Vegana");
-				            }
-				            if(events[evento].vegetariano == 's'){
-				                interesses.push(" Vegetariana");
-				            }
-				            if(events[evento].sem_glutem == 's'){
-				                interesses_evento.push(" Sem Glúten");
-				            }
-				            if(events[evento].sem_lactose == 's'){
-				                interesses_evento.push(" Sem Lactose");
-				            }
-				            if(events[evento].cross_fit == 's'){
-				                interesses_evento.push(" Cross Fit");
-				            }
-				            if(events[evento].esporte_coletivo == 's'){
-				                interesses_evento.push(" Esportes Coletivos");
-				            }
-				            if(events[evento].esporte_aventura == 's'){
-				                interesses_evento.push(" Esportes de Aventura");
-				            }
-				            if(events[evento].luta == 's'){
-				                interesses_evento.push(" Luta");
-				            }
-				            if(events[evento].yoga == 's'){
-				                interesses_evento.push(" Yoga");
-				            }
-				            %>
-								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
-								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
-							</div>
-						</article>
-					</div>
-					<%
-					interesses_evento = [];
-					}%>
-				</div>
-			<br>
-			<br>
-			</div>
-    	</div>
-    </section><!--/#seus_eventos-->
-
- 
+			<center><form action="/novo_evento" method="post" class="FiltrarForm">
+              <div class="input-group input-group-lg">
+              <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
+              <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
+              <label for="data"></label><br><input type="date" name="data" id="data" class="form-control"/>
+              <label for="local"></label><br><input type="text" name="local" id="local" class="form-control" placeholder="Local" />
+              <br>
+              <br><br>
+              <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+              <br>
+              <br>
+              <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br> 
+              <br>
+              <input class="btn btn-success" type="submit" value="Criar Evento"></input>
+              </div>
+            </form></center>
+            <br><br>
 	
     <!-- Footer
     ================================================== -->
