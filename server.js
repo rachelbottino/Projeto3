@@ -11,6 +11,8 @@ var alimentar = [];
 var atividades = [];
 var interesses = [];
 var interesses_evento = [];
+var interesses_usuario = [];
+var usuarios = [];
 var user_id;
 /*Set EJS template Engine*/
 app.set('views','./views');
@@ -63,13 +65,25 @@ app.get('/seus_eventos', function (req, res){
 });
 
 app.get('/usuarios', function (req, res){
-    res.render('list_users', {title:"Habit Matcher"});
     console.log("Na pagina lista usuarios...");
+    connection.query('SELECT * FROM usuario WHERE usuario_id != ?',[user_id], function (error, users, fields) {
+        if (error) throw error;            
+        console.log("Quantidade de usuario:");
+        console.log(users.length);
+        console.log(users);
+        res.render('list_users', {users:users});
+    });
 });
 
 app.get('/eventos', function (req, res){
-    res.render('list_events', {title:"Habit Matcher"});
     console.log("Na pagina lista eventos...");
+    connection.query('SELECT * FROM evento WHERE usuario_id != ?',[user_id], function (error, events, fields) {
+        if (error) throw error;            
+        console.log("Quantidade de eventos de outros usuarios:");
+        console.log(events.length);
+        console.log(events);
+        res.render('list_events', {events:events});
+    });
 });
 
 app.post('/signup', function(req, res) {
