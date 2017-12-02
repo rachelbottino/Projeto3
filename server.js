@@ -42,8 +42,22 @@ app.get('/login', function (req, res) {
  });
 
 app.get('/signup', function(req, res) {
-  res.sendFile('views/cadastra.html' , { root : __dirname});
+    res.sendFile('views/cadastra.html' , { root : __dirname});
  });
+
+app.get('/perfil', function(req, res) {
+    console.log(user_id);
+    console.log(alimentar);
+    console.log(atividades);
+    connection.query('SELECT * FROM usuario WHERE usuario_id = ?',[user_id], function (error, results, fields) {
+        if (error) throw error;
+        console.log('usuario: ', results);
+        res.render('home', {data:results, lista_alimentar:alimentar, lista_atividade:atividades});
+        alimentar = [];
+        atividades = [];
+    });
+    
+});
 
 app.get('/novo_evento', function (req, res) {
     res.sendFile('views/cria_evento.html' , { root : __dirname});
@@ -206,9 +220,7 @@ app.post('/login', function(req, res) {
                         atividades.push("Yoga");
                         interesses.push("yoga");
                     }
-                    res.render('home', {title:"Habit Matcher",data:results, lista_alimentar:alimentar, lista_atividade:atividades});
-                    alimentar = [];
-                    atividades = [];
+                    res.redirect('/perfil');
                 }   
                 else{
                     res.send({
