@@ -11,7 +11,10 @@ var alimentar = [];
 var atividades = [];
 var interesses = [];
 var interesses_evento = [];
+var interesses_usuario = [];
+var usuarios = [];
 var user_id;
+var filtro;
 /*Set EJS template Engine*/
 app.set('views','./views');
 app.set('view engine','ejs');
@@ -40,8 +43,65 @@ app.get('/login', function (req, res) {
  });
 
 app.get('/signup', function(req, res) {
-  res.sendFile('views/cadastra.html' , { root : __dirname});
+    res.sendFile('views/cadastra.html' , { root : __dirname});
  });
+
+app.get('/perfil', function(req, res) {
+    console.log(user_id);
+    console.log(alimentar);
+    console.log(atividades);
+    connection.query('SELECT * FROM usuario WHERE usuario_id = ?',[user_id], function (error, results, fields) {
+        if (error) throw error;
+        console.log('usuario: ', results);
+        //faz lista de habitos alimentares
+        if(results[0].low_carb == 's'){
+            alimentar.push("Low Carb");
+            interesses.push("low_carb");
+        }
+        if(results[0].vegano == 's'){
+            alimentar.push("Vegana");
+            interesses.push("vegano");
+        }
+        if(results[0].vegetariano == 's'){
+            alimentar.push("Vegetariana");
+            interesses.push("vegetariano");
+        }
+        if(results[0].sem_glutem == 's'){
+            alimentar.push("Sem Glúten");
+            interesses.push("sem_glutem");
+        }
+        if(results[0].sem_lactose == 's'){
+            alimentar.push("Sem Lactose");
+            interesses.push("sem_lactose");
+        }
+
+        //faz lista de atividades físicas
+        if(results[0].cross_fit == 's'){
+            atividades.push("Cross Fit");
+            interesses.push("cross_fit");
+        }
+        if(results[0].esporte_coletivo == 's'){
+            atividades.push("Esportes Coletivos");
+            interesses.push("esporte_coletivo");
+        }
+        if(results[0].esporte_aventura == 's'){
+            atividades.push("Esportes de Aventura");
+            interesses.push("esporte_aventura");
+        }
+        if(results[0].luta == 's'){
+            atividades.push("Luta");
+            interesses.push("luta");
+        }
+        if(results[0].yoga == 's'){
+            atividades.push("Yoga");
+            interesses.push("yoga");
+        }
+        res.render('home', {data:results, lista_alimentar:alimentar, lista_atividade:atividades});
+        alimentar = [];
+        atividades = [];
+    });
+    
+});
 
 app.get('/novo_evento', function (req, res) {
     res.sendFile('views/cria_evento.html' , { root : __dirname});
@@ -73,13 +133,28 @@ app.get('/seus_eventos', function (req, res){
 });
 
 app.get('/usuarios', function (req, res){
-    res.render('list_users', {title:"Habit Matcher"});
     console.log("Na pagina lista usuarios...");
+    filtro = req.body.filtro;
+    console.log(filtro);
+    connection.query('SELECT * FROM usuario WHERE usuario_id != ?',[user_id], function (error, users, fields) {
+        if (error) throw error;            
+        console.log("Quantidade de usuario:");
+        console.log(users.length);
+        console.log(users);
+        res.render('list_users', {users:users});
+    });
 });
 
+
 app.get('/eventos', function (req, res){
-    res.render('list_events', {title:"Habit Matcher"});
     console.log("Na pagina lista eventos...");
+    connection.query('SELECT * FROM evento WHERE usuario_id != ?',[user_id], function (error, events, fields) {
+        if (error) throw error;            
+        console.log("Quantidade de eventos de outros usuarios:");
+        console.log(events.length);
+        console.log(events);
+        res.render('list_events', {events:events});
+    });
 });
 
 // Criar usuário
@@ -89,7 +164,7 @@ app.post('/signup', function(req, res) {
    if(req.method == "POST"){
 
 
-        var file = req.files.uploaded_image;
+        var file = req.files.foto;
         var img_name=file.name;
 
     var new_user = {
@@ -98,7 +173,6 @@ app.post('/signup', function(req, res) {
         nome : req.body.name,
         email : req.body.email,
         senha : req.body.password,
-        nascimento: req.body.birthdate,
         endereco: req.body.address,
         telefone: req.body.phone,
         pref_contato: req.body.contact,
@@ -162,52 +236,7 @@ app.post('/login', function(req, res) {
                     });
                     //guarda id do usuario logado
                     user_id = results[0].usuario_id;
-                    //faz lista de habitos alimentares
-                    if(results[0].low_carb == 's'){
-                        alimentar.push("Low Carb");
-                        interesses.push("low_carb");
-                    }
-                    if(results[0].vegano == 's'){
-                        alimentar.push("Vegana");
-                        interesses.push("vegano");
-                    }
-                    if(results[0].vegetariano == 's'){
-                        alimentar.push("Vegetariana");
-                        interesses.push("vegetariano");
-                    }
-                    if(results[0].sem_glutem == 's'){
-                        alimentar.push("Sem Glúten");
-                        interesses.push("sem_glutem");
-                    }
-                    if(results[0].sem_lactose == 's'){
-                        alimentar.push("Sem Lactose");
-                        interesses.push("sem_lactose");
-                    }
-
-                    //faz lista de atividades físicas
-                    if(results[0].cross_fit == 's'){
-                        atividades.push("Cross Fit");
-                        interesses.push("cross_fit");
-                    }
-                    if(results[0].esporte_coletivo == 's'){
-                        atividades.push("Esportes Coletivos");
-                        interesses.push("esporte_coletivo");
-                    }
-                    if(results[0].esporte_aventura == 's'){
-                        atividades.push("Esportes de Aventura");
-                        interesses.push("esporte_aventura");
-                    }
-                    if(results[0].luta == 's'){
-                        atividades.push("Luta");
-                        interesses.push("luta");
-                    }
-                    if(results[0].yoga == 's'){
-                        atividades.push("Yoga");
-                        interesses.push("yoga");
-                    }
-                    res.render('home', {title:"Habit Matcher",data:results, lista_alimentar:alimentar, lista_atividade:atividades});
-                    alimentar = [];
-                    atividades = [];
+                    res.redirect('/perfil');
                 }   
                 else{
                     res.send({
@@ -237,7 +266,12 @@ app.post('/eventos', function(req, res){
 app.post('/novo_evento', function(req, res) {
     console.log("novo evento usuario id:");
     console.log(user_id);
+
+    var file = req.files.foto;
+    var img_name=file.name;
+
     var new_evento = {
+        foto: img_name,
         nome:req.body.nome,
         descricao:req.body.descricao,
         data:req.body.data,
@@ -253,15 +287,31 @@ app.post('/novo_evento', function(req, res) {
         luta : req.body.luta,
         yoga : req.body.yoga,
         usuario_id : user_id
+
+
 };
+
+ if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ||file.mimetype == "image/jpg"){
+                                 
+              file.mv('public/'+file.name, function(error) {
+                             
+                  if (error)
+
+                    return res.status(500).send(error);
+
+                connection.query("INSERT INTO evento SET ?", new_evento, function (error, results, fields) {   
+                    if (error) throw error;
+                    res.redirect('/seus_eventos');
+                });
+                       });
+          } else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
+          }
 
 
 console.log(new_evento);
-console.log(user_id);
- connection.query("INSERT INTO evento SET ?", new_evento, function (error, results, fields) {   
-        if (error) throw error;
-        res.redirect('/seus_eventos');
-  });
+
 });
 
 // Update eventos

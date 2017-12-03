@@ -20,8 +20,33 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
-	<link rel="stylesheet" type="text/css" href="css/template.css" />	
+	<link rel="stylesheet" type="text/css" href="css/template.css" />
+
+	<script>
+      $(document).ready(function(){
+        var photo, name, email,password, birthdate, address, phone, contact, food, activ;
+        $("#submit").click(function(){
+          name=$("#name").val();
+          email=$("#email").val();
+          password=$("#password").val();
+          photo = $("#photo").val();
+          birthdate = $("#birthdate").val();
+          address = $("#address").val();
+          phone = $("#phone").val();
+          contact = $("#contact").val();
+          activ = $("#activ").val();
+          food = $("#food").val();
+          $.post("http://localhost:3000/signup",{photo: photo, name: name, email: email,password: password, birthdate:birthdate, address:address,phone:phone,contact:contact, food:food, activ:activ}, function(data){
+              if(data==='done'){
+                  alert("success");
+              }
+            });
+          });
+        });
+    </script>
+
 </head>
+
 
 <body data-target="#nino-navbar" data-spy="scroll">
 
@@ -50,7 +75,7 @@
 								<li><a id="home" href="login">Seu Perfil</a></li>
 								<script type="text/javascript">
 									document.getElementById("home").onclick = function () {
-    								location.href = "perfil";
+    								location.href = "home";
 								};</script>
 								<li class="active"><a href="#seus_eventos">Seus Eventos<span class="sr-only">(current)</span></a></li>
 								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
@@ -84,110 +109,37 @@
      <section id="seus_eventos">
     	<div class="container">
     		<h2 class="nino-sectionHeading">
-				<span class="nino-subHeading">Eventos</span>
+				<span class="nino-subHeading">Perfil</span>
+				Editar
 			</h2>
-            <br>
-            <h2 href="novo_evento" class="nino-sectionHeading"><a href="novo_evento">
-				Criar Evento
-			</a></h2>
-			<br>
+			<center><form action="/signup" method="post" class="FiltrarForm" enctype="multipart/form-data">
+          <div class="input-group input-group-lg">
+           <input class="form-control" type="file" name="foto" accept="" />
+           <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="name" id="nome" required>
+           <label for="email"></label><input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+           <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="password" id="senha" required>
+           <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="address" id="endereço" required>
+           <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="phone" id="telefone" required>  
+           <br>
+          <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+          <br>
+          <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br>
 
-    		<h2 class="nino-sectionHeading">
-				Eventos Que Você Criou
-			</h2>
-			<div class="sectionContent">
-				<div class="row">
-					<% for(var evento=0; evento < events.length; evento++) { %>
-					<div class="col-md-4 col-sm-4">
-						<article>
-							<div class="articleThumb">
-								<a href="#"><img src="http://localhost:3000/<%=events[evento].foto%>" alt="" height="250" width="400"></a>
-								<!--
-								<div class="date">
-									<span class="number">7</span>
-									<span class="text">Nov</span>
-								</div>
-								-->
-							</div>
-							<h3 class="articleTitle"><a href=""><%=events[evento].nome%></a></h3>
-							<p class="articleDesc">
-								<%=events[evento].descricao%>
-							</p>
-							<div class="articleMeta">
-							<% 
-							var interesses_evento = [];
-
-							if(events[evento].low_carb == 's'){
-                				interesses_evento.push(" Low Carb");
-            				}
-				            if(events[evento].vegano == 's'){
-				                interesses_evento.push(" Vegana");
-				            }
-				            if(events[evento].vegetariano == 's'){
-				                interesses.push(" Vegetariana");
-				            }
-				            if(events[evento].sem_glutem == 's'){
-				                interesses_evento.push(" Sem Glúten");
-				            }
-				            if(events[evento].sem_lactose == 's'){
-				                interesses_evento.push(" Sem Lactose");
-				            }
-				            if(events[evento].cross_fit == 's'){
-				                interesses_evento.push(" Cross Fit");
-				            }
-				            if(events[evento].esporte_coletivo == 's'){
-				                interesses_evento.push(" Esportes Coletivos");
-				            }
-				            if(events[evento].esporte_aventura == 's'){
-				                interesses_evento.push(" Esportes de Aventura");
-				            }
-				            if(events[evento].luta == 's'){
-				                interesses_evento.push(" Luta");
-				            }
-				            if(events[evento].yoga == 's'){
-				                interesses_evento.push(" Yoga");
-				            }
-				            %>
-								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
-
-								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
-								<form class="FiltrarForm" action="/editar_evento">
-								<button class="form-control" class="btn btn-success" nome="EditarButton" id="EditarButton" value="<%=events[evento].evento_id%>">Editar</button>
-								<button class="form-control" class="btn btn-success" nome="DeleteButton" id="DeleteButton" value="<%=events[evento].evento_id%>">Apagar</button>
-								</form>
-							</div>
-						</article>
-					</div>
-					<%
-					interesses_evento = [];
-					}%>
-				</div>
-			<br>
-			<br>
-			</div>
-    	</div>
-    </section><!--/#seus_eventos-->
-
-       <!-- Map
-    ================================================== -->
-    <section id="nino-map">
-    	<div class="container">
-    		<h2 class="nino-sectionHeading">
-    			<i class="mdi mdi-map-marker nino-icon"></i>
-    			<span class="text">Open map</span>
-    			<span class="text" style="display: none;">Close map</span>
-    		</h2>
-    		<div class="mapWrap">
-    			<iframe
-  				width="600"
-  				height="450"
-  				frameborder="0" style="border:0"
-  				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDOx1AA-PnUiKf-9YGL8Ozx1hshfwnTNlk&q=Insper" allowfullscreen>
-				</iframe>
-	    	</div>
-    	</div>
-    </section><!--/#nino-map--> 
+          <br>
+          <input class="btn btn-success" type="submit" value="Cadastrar!"></input>
+          </div>
+        </form></center>
+            <br><br>
 	
     <!-- Footer
     ================================================== -->

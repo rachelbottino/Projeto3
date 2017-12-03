@@ -24,15 +24,16 @@
 
 	<script>
       $(document).ready(function(){
-        var nome, descricao, data, local, activ, food;
+        var photo, nome, descricao, data, local, activ, food;
         $("#submit").click(function(){
+          photo = $("#photo").val();
           nome=$("#nome").val();
           descricao=$("#descricao").val();
           data=$("#data").val();
       	  local = $("#local").val();
           activ = $("#activ").val();
           food = $("#food").val();
-          $.post("http://localhost:3000/novo_evento",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
+          $.post("http://localhost:3000/novo_evento",{photo: photo, nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
             if(data==='done')
               {
                 alert("success");
@@ -109,11 +110,12 @@
 				<span class="nino-subHeading">Eventos</span>
 				Criar Evento
 			</h2>
-			<center><form action="/novo_evento" method="post" class="FiltrarForm">
+			<center><form action="/novo_evento" method="post" class="FiltrarForm"  enctype="multipart/form-data">
               <div class="input-group input-group-lg">
+              <input class="form-control" type="file" name="foto" accept="" />
               <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
               <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
-              <label for="data"></label><br><input type="date" name="data" id="data" class="form-control" placeholder="25/10/1997"/>
+              <label for="data"></label><br><input type="date" name="data" id="data" class="form-control"/>
               <label for="local"></label><br><input type="text" name="local" id="local" class="form-control" placeholder="Local" />
               <br>
               <br><br>

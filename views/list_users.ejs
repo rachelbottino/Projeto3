@@ -24,24 +24,18 @@
 
 	<script>
       $(document).ready(function(){
-        var nome, descricao, data, local, activ, food;
+        var filtro;
         $("#submit").click(function(){
-          nome=$("#nome").val();
-          descricao=$("#descricao").val();
-          data=$("#data").val();
-      	  local = $("#local").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/criar",{nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
-            if(data==='done')
-              {
-                alert("success");
+          filtro=$("#filtro").val();
+          $.post("http://localhost:3000/usuarios",{filtro:filtro}, function(data){
+              if(data==='done'){
+                  alert("success");
               }
-          });
+            });
           });
         });
     </script>
-	
+
 </head>
 
 <body data-target="#nino-navbar" data-spy="scroll">
@@ -71,7 +65,7 @@
 								<li><a id="home" href="login">Seu Perfil</a></li>
 								<script type="text/javascript">
 								document.getElementById("home").onclick = function () {
-    								location.href = "home";
+    								location.href = "perfil";
 								};</script>
 								<li><a id="seus_eventos" href="seus_eventos">Seus Eventos</a></li>
 								<script type="text/javascript">
@@ -105,9 +99,21 @@
 				<span class="nino-subHeading">Encontre usuários</span>
 				Com interesses parecidos com os seus
 			</h2>
-			<form action="" class="FiltrarForm">
+			<form action="usuarios" class="FiltrarForm" method="get">
 				<div class="input-group input-group-lg">
-					<input type="text" class="form-control" placeholder="Interesse" required>
+					
+					<label for="filtro"></label><select class="form-control" placeholder="Interesse" name="filtro">
+						<option value="low_carb">Low Carb</option>
+						<option value="vegano">Vegano</option>
+						<option value="vegetariano">Vegetariano</option>
+						<option value="sem_glutem">Sem glúten</option>
+						<option value="sem_lactose">Sem lactose</option>
+						<option value="cross_fit">Cross fit</option>
+						<option value="esporte_coletivo">Esporte coletivo</option>
+						<option value="esporte_aventura">Esporte de aventura</option>
+						<option value="luta">Luta</option>
+						<option value="yoga">Yoga</option>
+					</select>
 					<span class="input-group-btn">
 						<button class="btn btn-success" type="submit">Filtrar</button>
 					</span>
@@ -117,91 +123,56 @@
 		</div>
 		<div class="sectionContent">
 			<ul class="nino-portfolioItems">
+				<% for(var usuario = 0; usuario < users.length; usuario++){ %>
 				<li class="item">
 					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-1.jpg">
-						<img src="images/usuarios/img-1.jpg"/>
+						<img src="images/usuarios/img-3.jpg"/>
 						<div class="overlay">
 							<div  href="user.html" class="content">
 								<i href="user.html" class="mdi mdi-account nino-icon"></i>
-								<h4 class="title" href="user.html">Maluma</h4>
-								<span class="desc">Academia, Crossfit, LowCarb</span>
+								<h4 class="title" href="user.html"><%= users[usuario].nome %></h4>
+								<%var interesses = [];
+								if(users[usuario].low_carb=='s'){
+									interesses.push(" Low carb");
+								}
+								if(users[usuario].vegano=='s'){
+									interesses.push(" Vegano");
+								}
+								if(users[usuario].vegetariano=='s'){
+									interesses.push(" Vegetariano");
+								}
+								if(users[usuario].sem_glutem=='s'){
+									interesses.push(" Sem glúten");
+								}
+								if(users[usuario].sem_lactose=='s'){
+									interesses.push(" Sem lactose");
+								}		
+								if(users[usuario].cross_fit=='s'){
+									interesses.push(" Cross fit");
+								}
+								if(users[usuario].esporte_coletivo=='s'){
+									interesses.push(" Esportes coletivos");
+								}
+								if(users[usuario].esporte_aventura=='s'){
+									interesses.push(" Esportes de aventura");
+								}
+								if(users[usuario].luta=='s'){
+									interesses.push(" Luta");
+								}
+								if(users[usuario].yoga=='s'){
+									interesses.push(" Yoga");
+								}
+
+					            %>
+								<span class="desc"><%=interesses%></span>
 								<button href="user.html">ver perfil</button>
 							</div>
 						</div>
 					</a>
 				</li>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-2.jpg">
-						<img src="images/usuarios/img-2.jpg" />
-						<div class="overlay">
-							<div class="content">
-								<i class="mdi mdi-account nino-icon" href="user.html"></i>
-								<h4 class="title">Justin Bieber</h4>
-								<span class="desc">Corrida, Sem Lactose</span>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-3.jpg">
-						<img src="images/usuarios/img-3.jpg" />
-						<div class="overlay">
-							<div class="content">
-								<i class="mdi mdi-account nino-icon" href="user.html"></i>
-								<h4 class="title">Anitta</h4>
-								<span class="desc">Academia, Dança, LowCarb</span>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-4.jpg">
-						<img src="images/usuarios/img-4.jpg"  />
-						<div class="overlay">
-							<div class="content">
-								<i class="mdi mdi-account nino-icon" href="user.html"></i>
-								<h4 class="title">Neymar Junior</h4>
-								<span class="desc">Futebol</span>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-5.jpg">
-						<img src="images/usuarios/img-5.jpg" />
-						<div class="overlay">
-							<div class="content">
-								<i class="mdi mdi-account nino-icon" href="user.html"></i>
-								<h4 class="title">Gabriel Medina</h4>
-								<span class="desc">Surf, Academia, Natação</span>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-6.jpg">
-						<img src="images/usuarios/img-6.jpg" />
-						<div class="overlay">
-							<div class="content">
-								<i class="mdi mdi-account nino-icon" href="user.html"></i>
-								<h4 class="title">Maya Gabeira</h4>
-								<span class="desc">Surfe, Vegana, Sem glútem</span>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-7.jpg">
-						<img src="images/usuarios/img-7.jpg" />
-						<div class="overlay">
-							<div class="content">
-								<i class="mdi mdi-account nino-icon" href="user.html"></i>
-								<h4 class="title">Maria Sharapova</h4>
-								<span class="desc">Tenis</span>
-							</div>
-						</div>
-					</a>
-				</li>
+				<% 
+				interesses = [];
+				} %>
 			</ul>
 		</div>
 	</section><!--/#nino-portfolio-->
