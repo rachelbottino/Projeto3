@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
 
-  <title>Nome do Site</title>
+  <title>Habit Matcher</title>
   
   <!-- favicon -->
     <link rel="shortcut icon" href="images/ico/favicon.jpg">
@@ -72,15 +72,15 @@
   <section id="perfil">
     <div class="container">
       <center>
-        <form action="/signup" method="post" class="FiltrarForm">
+        <form action="/signup" method="post" class="FiltrarForm" enctype="multipart/form-data">
           <div class="input-group input-group-lg">
-           <label for="photo"></label><input type="file" class="form-control" placeholder="Foto" name="foto" id="foto">
-           <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="nome" id="nome" required>
+           <input class="form-control" type="file" name="foto" accept="" />
+           <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="name" id="nome" required>
            <label for="email"></label><input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
-           <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="senha" id="senha" required>
-          <label for="birthdate"></label><input type="date" class="form-control" placeholder="Nascimento" name="nascimento" id="nascimento" required>
-           <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="endereço" id="endereço" required>
-           <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="telefone" id="telefone" required>  
+           <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="password" id="senha" required>
+          <label for="birthdate"></label><input type="date" class="form-control" placeholder="Nascimento" name="birthdate" id="nascimento" required>
+           <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="address" id="endereço" required>
+           <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="phone" id="telefone" required>  
            <br>
           <label for="food"> Preferencias Alimentares</label><br>
               <input type="checkbox" name="low_carb" value="s"> Low Carb<br>

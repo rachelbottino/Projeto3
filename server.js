@@ -153,7 +153,7 @@ app.post('/signup', function(req, res) {
    if(req.method == "POST"){
 
 
-        var file = req.files.uploaded_image;
+        var file = req.files.foto;
         var img_name=file.name;
 
     var new_user = {
@@ -253,7 +253,12 @@ app.post('/eventos', function(req, res){
 app.post('/novo_evento', function(req, res) {
     console.log("novo evento usuario id:");
     console.log(user_id);
+
+    var file = req.files.foto;
+    var img_name=file.name;
+
     var new_evento = {
+        foto: img_name,
         nome:req.body.nome,
         descricao:req.body.descricao,
         data:req.body.data,
@@ -269,14 +274,31 @@ app.post('/novo_evento', function(req, res) {
         luta : req.body.luta,
         yoga : req.body.yoga,
         usuario_id : user_id
+
+
 };
+
+ if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ||file.mimetype == "image/jpg"){
+                                 
+              file.mv('public/'+file.name, function(error) {
+                             
+                  if (error)
+
+                    return res.status(500).send(error);
+
+                connection.query("INSERT INTO evento SET ?", new_evento, function (error, results, fields) {   
+                    if (error) throw error;
+                    res.redirect('/seus_eventos');
+                });
+                       });
+          } else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
+          }
 
 
 console.log(new_evento);
- connection.query("INSERT INTO evento SET ?", new_evento, function (error, results, fields) {   
-        if (error) throw error;
-        res.redirect('/seus_eventos');
-  });
+
 });
 
 //start Server
