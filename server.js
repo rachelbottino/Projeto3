@@ -29,7 +29,7 @@ app.use(fileUpload());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'adgjlra1',
+    password : 'rangobom971025',
     database : 'projeto3'
 })
 
@@ -107,6 +107,16 @@ app.get('/novo_evento', function (req, res) {
     res.sendFile('views/cria_evento.html' , { root : __dirname});
  });
 
+app.get('/update_evento', function (req, res) {
+    res.sendFile('views/modevento.html' , { root : __dirname});
+ });
+
+
+app.get('/update_user', function (req, res) {
+    res.sendFile('views/cadastra.html' , { root : __dirname});
+ });
+
+// Listar eventos do usuario
 app.get('/seus_eventos', function (req, res){
     console.log("Na pagina seus eventos...");
     console.log("Id do usuario:");
@@ -147,6 +157,7 @@ app.get('/eventos', function (req, res){
     });
 });
 
+// Criar usuário
 app.post('/signup', function(req, res) {
 
     message = '';
@@ -157,6 +168,7 @@ app.post('/signup', function(req, res) {
         var img_name=file.name;
 
     var new_user = {
+
         foto : img_name,
         nome : req.body.name,
         email : req.body.email,
@@ -199,6 +211,7 @@ app.post('/signup', function(req, res) {
  
 });
 
+// Login
 app.post('/login', function(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
@@ -249,6 +262,7 @@ app.post('/eventos', function(req, res){
 
 });
 
+// Criar evento
 app.post('/novo_evento', function(req, res) {
     console.log("novo evento usuario id:");
     console.log(user_id);
@@ -300,8 +314,178 @@ console.log(new_evento);
 
 });
 
+// Update eventos
+app.get('/update_evento', function(req,res,next){
+
+    var evento_id = req.body.EditarButton;
+    //var evento_id = req.params.evento_id;
+    console.log(evento_id);
+    req.getConnection(function(err,conn){
+
+        if (err) return next("Cannot Connect");
+
+        var query = conn.query("SELECT * FROM evento WHERE evento_id = ? ",[evento_id],function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("Evento não encontrado");
+
+            res.render('edit',{title:"Editar evento",data:rows});
+        });
+
+    });
+
+});
+
+//U do CRUD -> agora é a mesma coisa do create | PUT
+app.put('/update_evento', function(req,res,next){
+    //var evento_id = req.params.evento_id;
+
+    //dados
+    var data = {
+        nome:req.body.nome,
+        descricao:req.body.descricao,
+        data:req.body.data,
+        local:req.body.local,
+        low_carb: req.body.low_carb,
+        vegano : req.body.vegano,
+        vegetariano : req.body.vegetariano,
+        sem_glutem : req.body.sem_glutem,
+        sem_lactose : req.body.sem_lactose,
+        cross_fit : req.body.cross_fit,
+        esporte_coletivo : req.body.esporte_coletivo,
+        esporte_aventura : req.body.esporte_aventura,
+        luta : req.body.luta,
+        yoga : req.body.yoga
+};
+
+    //coloca no mysql
+    req.getConnection(function (err, conn){
+
+        if (err) return next("Cannot Connect");
+
+        var query = conn.query("UPDATE evento set ? WHERE evento_id = ? ",[data,evento_id], function(err, rows){
+
+           if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+           }
+
+          res.sendStatus(200);
+
+        });
+
+     });
+
+});
+
+app.delete(function(req,res,next){
+
+    var evento_id = req.params.DeleteButton;
+
+    console.log(evento_id);
+     req.getConnection(function (err, conn) {
+
+        if (err) return next("Cannot Connect");
+
+        var query = conn.query("DELETE FROM evento  WHERE evento_id = ? ",[evento_id], function(err, rows){
+
+             if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+             }
+
+             res.sendStatus(200);
+
+        });
+        //console.log(query.sql);
+
+     });
+});
+
+
+
+// Update usuário
+app.get('/update_user', function(req,res,next){
+
+    var user_id = req.params.usuario_id;
+
+    req.getConnection(function(err,conn){
+
+        if (err) return next("Cannot Connect");
+
+        var query = conn.query("SELECT * FROM usuario WHERE usuario_id = ? ",[user_id],function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('edit',{title:"Edit user",data:rows});
+        });
+
+    });
+
+});
+
+//U do CRUD -> agora é a mesma coisa do create | PUT
+app.put('/update_user', function(req,res,next){
+    var user_id = req.params.usuario_id;
+    var file = req.files.uploaded_image;
+    var img_name=file.name;
+    
+    var data = {
+
+        foto : img_name,
+        nome : req.body.name,
+        email : req.body.email,
+        senha : req.body.password,
+        nascimento: req.body.birthdate,
+        endereco: req.body.address,
+        telefone: req.body.phone,
+        pref_contato: req.body.contact,
+        low_carb: req.body.low_carb,
+        vegano : req.body.vegano,
+        vegetariano : req.body.vegetariano,
+        sem_glutem : req.body.sem_glutem,
+        sem_lactose : req.body.sem_lactose,
+        cross_fit : req.body.cross_fit,
+        esporte_coletivo : req.body.esporte_coletivo,
+        esporte_aventura : req.body.esporte_aventura,
+        luta : req.body.luta,
+        yoga : req.body.yoga
+    }; 
+
+         if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ||file.mimetype == "image/jpg"){
+                                 
+              file.mv('public/'+file.name, function(error) {
+                             
+                  if (error)
+
+                    return res.status(500).send(error);
+
+                connection.query("UPDATE usuario set ? WHERE usuario_id = ? ",[data,user_id], function(err, rows){
+                            if (error) throw error;
+                            res.redirect('/');
+                            });
+                       });
+          } else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
+          }
+   });
+
 //start Server
-app.listen(3000, function () {
-    console.log('Servidor rodando na porta 3000!')
-})
-;
+var server = app.listen(3000,function(){
+    console.log("Servidor rodando na porta %s",server.address().port);
+
+});
