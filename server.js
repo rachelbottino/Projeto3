@@ -53,9 +53,52 @@ app.get('/perfil', function(req, res) {
     connection.query('SELECT * FROM usuario WHERE usuario_id = ?',[user_id], function (error, results, fields) {
         if (error) throw error;
         console.log('usuario: ', results);
+        //faz lista de habitos alimentares
+        if(results[0].low_carb == 's'){
+            alimentar.push("Low Carb");
+            interesses.push("low_carb");
+        }
+        if(results[0].vegano == 's'){
+            alimentar.push("Vegana");
+            interesses.push("vegano");
+        }
+        if(results[0].vegetariano == 's'){
+            alimentar.push("Vegetariana");
+            interesses.push("vegetariano");
+        }
+        if(results[0].sem_glutem == 's'){
+            alimentar.push("Sem Glúten");
+            interesses.push("sem_glutem");
+        }
+        if(results[0].sem_lactose == 's'){
+            alimentar.push("Sem Lactose");
+            interesses.push("sem_lactose");
+        }
+
+        //faz lista de atividades físicas
+        if(results[0].cross_fit == 's'){
+            atividades.push("Cross Fit");
+            interesses.push("cross_fit");
+        }
+        if(results[0].esporte_coletivo == 's'){
+            atividades.push("Esportes Coletivos");
+            interesses.push("esporte_coletivo");
+        }
+        if(results[0].esporte_aventura == 's'){
+            atividades.push("Esportes de Aventura");
+            interesses.push("esporte_aventura");
+        }
+        if(results[0].luta == 's'){
+            atividades.push("Luta");
+            interesses.push("luta");
+        }
+        if(results[0].yoga == 's'){
+            atividades.push("Yoga");
+            interesses.push("yoga");
+        }
         res.render('home', {data:results, lista_alimentar:alimentar, lista_atividade:atividades});
-        //alimentar = [];
-        //atividades = [];
+        alimentar = [];
+        atividades = [];
     });
     
 });
@@ -81,6 +124,8 @@ app.get('/seus_eventos', function (req, res){
 
 app.get('/usuarios', function (req, res){
     console.log("Na pagina lista usuarios...");
+    filtro = req.body.filtro;
+    console.log(filtro);
     connection.query('SELECT * FROM usuario WHERE usuario_id != ?',[user_id], function (error, users, fields) {
         if (error) throw error;            
         console.log("Quantidade de usuario:");
@@ -179,49 +224,6 @@ app.post('/login', function(req, res) {
                     });
                     //guarda id do usuario logado
                     user_id = results[0].usuario_id;
-                    //faz lista de habitos alimentares
-                    if(results[0].low_carb == 's'){
-                        alimentar.push("Low Carb");
-                        interesses.push("low_carb");
-                    }
-                    if(results[0].vegano == 's'){
-                        alimentar.push("Vegana");
-                        interesses.push("vegano");
-                    }
-                    if(results[0].vegetariano == 's'){
-                        alimentar.push("Vegetariana");
-                        interesses.push("vegetariano");
-                    }
-                    if(results[0].sem_glutem == 's'){
-                        alimentar.push("Sem Glúten");
-                        interesses.push("sem_glutem");
-                    }
-                    if(results[0].sem_lactose == 's'){
-                        alimentar.push("Sem Lactose");
-                        interesses.push("sem_lactose");
-                    }
-
-                    //faz lista de atividades físicas
-                    if(results[0].cross_fit == 's'){
-                        atividades.push("Cross Fit");
-                        interesses.push("cross_fit");
-                    }
-                    if(results[0].esporte_coletivo == 's'){
-                        atividades.push("Esportes Coletivos");
-                        interesses.push("esporte_coletivo");
-                    }
-                    if(results[0].esporte_aventura == 's'){
-                        atividades.push("Esportes de Aventura");
-                        interesses.push("esporte_aventura");
-                    }
-                    if(results[0].luta == 's'){
-                        atividades.push("Luta");
-                        interesses.push("luta");
-                    }
-                    if(results[0].yoga == 's'){
-                        atividades.push("Yoga");
-                        interesses.push("yoga");
-                    }
                     res.redirect('/perfil');
                 }   
                 else{

@@ -24,10 +24,19 @@
 
 	<script>
       $(document).ready(function(){
-        var filtro;
+        var photo, name, email,password, birthdate, address, phone, contact, food, activ;
         $("#submit").click(function(){
-          filtro=$("#filtro").val();
-          $.post("http://localhost:3000/usuarios",{filtro:filtro}, function(data){
+          name=$("#name").val();
+          email=$("#email").val();
+          password=$("#password").val();
+          photo = $("#photo").val();
+          birthdate = $("#birthdate").val();
+          address = $("#address").val();
+          phone = $("#phone").val();
+          contact = $("#contact").val();
+          activ = $("#activ").val();
+          food = $("#food").val();
+          $.post("http://localhost:3000/signup",{photo: photo, name: name, email: email,password: password, birthdate:birthdate, address:address,phone:phone,contact:contact, food:food, activ:activ}, function(data){
               if(data==='done'){
                   alert("success");
               }
@@ -37,6 +46,7 @@
     </script>
 
 </head>
+
 
 <body data-target="#nino-navbar" data-spy="scroll">
 
@@ -55,7 +65,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="homepage.html">Habit Matcher</a>
+						<a class="navbar-brand" href="home.ejs">Habit Matcher</a>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,15 +74,15 @@
 							<ul class="nav navbar-nav">
 								<li><a id="home" href="login">Seu Perfil</a></li>
 								<script type="text/javascript">
-								document.getElementById("home").onclick = function () {
-    								location.href = "perfil";
+									document.getElementById("home").onclick = function () {
+    								location.href = "home";
 								};</script>
-								<li><a id="seus_eventos" href="seus_eventos">Seus Eventos</a></li>
+								<li class="active"><a href="#seus_eventos">Seus Eventos<span class="sr-only">(current)</span></a></li>
+								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
 								<script type="text/javascript">
-								document.getElementById("seus_eventos").onclick = function () {
-    								location.href = "seus_eventos";
+								document.getElementById("usuarios").onclick = function () {
+    								location.href = "usuarios";
 								};</script>
-								<li class="active"><a href="#usuarios">Encontre Usuários<span class="sr-only">(current)</span></a></li>
 								<li><a id="eventos" href="eventos">Encontre Eventos</a></li>
 								<script type="text/javascript">
 								document.getElementById("eventos").onclick = function () {
@@ -90,94 +100,47 @@
 					</div>
 				</div><!-- /.container-fluid -->
 			</nav>
-			</div>
-			</header>
+		</div>
+	</header><!--/#header-->
 
-    <section id="usuarios">
-		<div class="container">
-			<h2 class="nino-sectionHeading">
-				<span class="nino-subHeading">Encontre usuários</span>
-				Com interesses parecidos com os seus
+	<!-- Eventos
+    ================================================== -->    
+
+     <section id="seus_eventos">
+    	<div class="container">
+    		<h2 class="nino-sectionHeading">
+				<span class="nino-subHeading">Perfil</span>
+				Editar
 			</h2>
-			<form action="usuarios" class="FiltrarForm" method="get">
-				<div class="input-group input-group-lg">
-					
-					<label for="filtro"></label><select class="form-control" placeholder="Interesse" name="filtro">
-						<option value="low_carb">Low Carb</option>
-						<option value="vegano">Vegano</option>
-						<option value="vegetariano">Vegetariano</option>
-						<option value="sem_glutem">Sem glúten</option>
-						<option value="sem_lactose">Sem lactose</option>
-						<option value="cross_fit">Cross fit</option>
-						<option value="esporte_coletivo">Esporte coletivo</option>
-						<option value="esporte_aventura">Esporte de aventura</option>
-						<option value="luta">Luta</option>
-						<option value="yoga">Yoga</option>
-					</select>
-					<span class="input-group-btn">
-						<button class="btn btn-success" type="submit">Filtrar</button>
-					</span>
-				</div>
-			</form>
-			<br>
-		</div>
-		<div class="sectionContent">
-			<ul class="nino-portfolioItems">
-				<% for(var usuario = 0; usuario < users.length; usuario++){ %>
-				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-1.jpg">
-						<img src="images/usuarios/img-3.jpg"/>
-						<div class="overlay">
-							<div  href="user.html" class="content">
-								<i href="user.html" class="mdi mdi-account nino-icon"></i>
-								<h4 class="title" href="user.html"><%= users[usuario].nome %></h4>
-								<%var interesses = [];
-								if(users[usuario].low_carb=='s'){
-									interesses.push(" Low carb");
-								}
-								if(users[usuario].vegano=='s'){
-									interesses.push(" Vegano");
-								}
-								if(users[usuario].vegetariano=='s'){
-									interesses.push(" Vegetariano");
-								}
-								if(users[usuario].sem_glutem=='s'){
-									interesses.push(" Sem glúten");
-								}
-								if(users[usuario].sem_lactose=='s'){
-									interesses.push(" Sem lactose");
-								}		
-								if(users[usuario].cross_fit=='s'){
-									interesses.push(" Cross fit");
-								}
-								if(users[usuario].esporte_coletivo=='s'){
-									interesses.push(" Esportes coletivos");
-								}
-								if(users[usuario].esporte_aventura=='s'){
-									interesses.push(" Esportes de aventura");
-								}
-								if(users[usuario].luta=='s'){
-									interesses.push(" Luta");
-								}
-								if(users[usuario].yoga=='s'){
-									interesses.push(" Yoga");
-								}
+			<center><form action="/signup" method="post" class="FiltrarForm">
+          <div class="input-group input-group-lg">
+           <label for="photo"></label><input type="file" class="form-control" placeholder="Foto" name="foto" id="foto">
+           <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="nome" id="nome" required>
+           <label for="email"></label><input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+           <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="senha" id="senha" required>
+          <label for="birthdate"></label><input type="date" class="form-control" placeholder="Nascimento" name="nascimento" id="nascimento" required>
+           <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="endereço" id="endereço" required>
+           <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="telefone" id="telefone" required>  
+           <br>
+          <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+          <br>
+          <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br>
 
-					            %>
-								<span class="desc"><%=interesses%></span>
-								<button href="user.html">ver perfil</button>
-							</div>
-						</div>
-					</a>
-				</li>
-				<% 
-				interesses = [];
-				} %>
-			</ul>
-		</div>
-	</section><!--/#nino-portfolio-->
-	<br>
-	<br>
+          <br>
+          <input class="btn btn-success" type="submit" value="Cadastrar!"></input>
+          </div>
+        </form></center>
+            <br><br>
 	
     <!-- Footer
     ================================================== -->
