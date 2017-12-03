@@ -161,7 +161,6 @@ app.post('/signup', function(req, res) {
         nome : req.body.name,
         email : req.body.email,
         senha : req.body.password,
-        nascimento: req.body.birthdate,
         endereco: req.body.address,
         telefone: req.body.phone,
         pref_contato: req.body.contact,
