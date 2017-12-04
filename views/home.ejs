@@ -1,4 +1,246 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+
+	<title>Habit Matcher</title>
+	
+	<!-- favicon -->
+    <link rel="shortcut icon" href="images/ico/favicon.jpg">
+    <link rel="GG" sizes="144x144" href="images/ico/GG.png">
+    <link rel="G" sizes="114x114" href="images/ico/G.png">
+    <link rel="M" sizes="72x72" href="images/ico/M.png">
+    <link rel="P" href="images/ico/P.png">
+	
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
+	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.css" />
+	
+</head>
+
+<body data-target="#nino-navbar" data-spy="scroll">
+
+	<!-- Header
+    ================================================== -->
+	<header id="nino-header">
+		<div id="nino-headerInner">					
+			<nav id="nino-navbar" class="navbar navbar-default" role="navigation">
+				<div class="container">
+
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nino-navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="homepage.html">Habit Matcher</a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="nino-menuItem pull-right">
+						<div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li class="active"><a href="#nino-header">Seu Perfil<span class="sr-only">(current)</span></a></li>
+								<li><a id="seus_eventos" href="seus_eventos">Seus Eventos</a></li>
+								<script type="text/javascript">
+								document.getElementById("seus_eventos").onclick = function () {
+    								location.href = "seus_eventos";
+								};</script>
+								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
+								<script type="text/javascript">
+								document.getElementById("usuarios").onclick = function () {
+    								location.href = "usuarios";
+								};</script>
+								<li><a id="eventos" href="eventos">Encontre Eventos</a></li>
+								<script type="text/javascript">
+								document.getElementById("eventos").onclick = function () {
+    								location.href = "eventos";
+								};</script>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+						<ul class="nino-iconsGroup nav navbar-nav">
+							<li><a id="login" href="#" class="nino-search"><i class="mdi mdi-logout nino-icon"></i></a></li>
+							<script type="text/javascript">
+								document.getElementById("login").onclick = function () {
+    								location.href = "login";
+								};</script>
+						</ul>
+					</div>
+				</div><!-- /.container-fluid -->
+			</nav>
+
+			<section id="nino-slider" class="carousel slide container" data-ride="carousel">
+				
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<h2 class="nino-sectionHeading">
+						<span class="nino-subHeading">Bem Vindo!</span>
+							ao <br>Habit Matcher
+						</h2>
+					</div>
+					<div class="item">
+						<h2 class="nino-sectionHeading">
+							<span class="nino-subHeading">Encontre pessoas</span>
+							Com interesses <br>parecidos 
+						</h2>
+					</div>
+					<div class="item">
+						<h2 class="nino-sectionHeading">
+							<span class="nino-subHeading">Crie eventos</span>
+							Para toda a <br>comunidade
+						</h2>
+					</div>
+					<div class="item">
+						<h2 class="nino-sectionHeading">
+							<span class="nino-subHeading">Participe</span>
+							De eventos de<br>outros usuarios
+						</h2>
+					</div>
+				</div>
+
+				<!-- Indicators -->
+				<ol class="carousel-indicators clearfix">
+					<li data-target="#nino-slider" data-slide-to="0" class="active">
+						<div class="inner">	
+						</div>
+					</li>
+					<li data-target="#nino-slider" data-slide-to="1">
+						<div class="inner">
+						</div>
+					</li>
+					<li data-target="#nino-slider" data-slide-to="2">
+						<div class="inner">
+						</div>
+					</li>
+					<li data-target="#nino-slider" data-slide-to="3">
+						<div class="inner">
+						</div>
+					</li>
+				</ol>
+			</section>
+		</div>
+	</header><!--/#header-->
+
+	<!-- Perfil do usuario
+    ================================================== -->
+	<section id="perfil">
+		<div class="container">
+			<h2 class="nino-sectionHeading">
+				<span class="nino-subHeading">Perfil</span>
+				<%=data[0].nome%>
+			</h2>
+			<div class="sectionContent">
+				<div class="row nino-hoverEffect">
+					<div class="item">
+						<div class="overlay" href="#">
+							<div class="content">
+								<a class="nino-icon" value="<%=data[0].usuario_id%>" href="editar_perfil/<%=data[0].usuario_id%>"><i class="mdi mdi-account"></i></a>
+								<p class="nino-sectionDesc" value="<%=data[0].usuario_id%>"> Editar Perfil</p>
+							</div>
+							
+ 								<img width="250px" height="400px" alt="User Pic" src="http://localhost:3000/<%=data[0].foto%>">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</section>
+
+<h2 class="nino-sectionHeading">Atividades</h2>
+    <section id="interesses">
+    	<div class="container">
+    		<div layout="row" class="verticalStretch">
+    			<%
+    			t_ativ = lista_atividade.length;
+    			for(var i=0; i < t_ativ; i++) { %>
+    			<div class="item">
+    				<div class="text"><%= lista_atividade[i] %></div>
+    			</div>
+    			<% } %>
+
+    			<%for(var j=5-t_ativ; j>0; j--) { %>
+    			<div class="item">
+    				<a href="#" class="nino-icon"><i class="mdi mdi-plus"></i></a>
+    			</div>
+    			<% } %>
+    		</div>
+		</div>
+    </section>
+    <br>
+
+	<h2 class="nino-sectionHeading">Alimentação</h2>
+    <section id="interesses">
+    	<div class="container">
+    		<div layout="row" class="verticalStretch">
+    			<%
+    			t_alim = lista_alimentar.length;
+    			for(var i=0; i < t_alim; i++) { %>
+    			<div class="item">
+    				<div class="text"><%= lista_alimentar[i] %></div>
+    			</div>
+    			<% } %>
+
+    			<%for(var j=5-t_alim; j>0; j--) { %>
+    			<div class="item">
+    				<a href="#" class="nino-icon"><i class="mdi mdi-plus"></i></a>
+    			</div>
+    			<% } %>
+    		</div>
+		</div>
+    </section><!--/#perfil-->
+	
+    <!-- Footer
+    ================================================== -->
+    <footer id="footer">
+        <div class="container">
+        	<div class="row">
+        		<div class="col-md-4">
+        			<div class="colInfo">
+
+	        			
+        			</div>
+        		</div>
+   
+        	</div>
+			<div class="nino-copyright">Copyright &copy; 2017</div>
+        </div>
+    </footer><!--/#footer-->
+
+	<a href="#" id="nino-scrollToTop">Go to Top</a>
+	
+	<!-- javascript -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>	
+	<script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.97074.js"></script>
+	<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="js/unslider-min.js"></script>
+	<script type="text/javascript" src="js/template.js"></script>
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<!-- css3-mediaqueries.js for IE less than 9 -->
+	<!--[if lt IE 9]>
+	    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+		
+</body>
+=======
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

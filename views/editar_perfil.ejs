@@ -193,4 +193,204 @@
 	<![endif]-->
 		
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+
+	<title>Habit Matcher</title>
+	
+	<!-- favicon -->
+    <link rel="shortcut icon" href="images/ico/favicon.jpg">
+    <link rel="GG" sizes="144x144" href="images/ico/GG.png">
+    <link rel="G" sizes="114x114" href="images/ico/G.png">
+    <link rel="M" sizes="72x72" href="images/ico/M.png">
+    <link rel="P" href="images/ico/P.png">
+	
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
+	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
+	<link rel="stylesheet" type="text/css" href="css/template.css" />
+
+	<script>
+    </script>
+
+</head>
+
+
+<body data-target="#nino-navbar" data-spy="scroll">
+
+	<!-- Header
+    ================================================== -->
+	<header id="nino-header">
+		<div id="nino-headerInner">					
+			<nav id="nino-navbar" class="navbar navbar-default" role="navigation">
+				<div class="container">
+
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nino-navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="home.ejs">Habit Matcher</a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="nino-menuItem pull-right">
+						<div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li><a id="home" href="login">Seu Perfil</a></li>
+								<script type="text/javascript">
+									document.getElementById("home").onclick = function () {
+    								location.href = "home";
+								};</script>
+								<li class="active"><a href="#seus_eventos">Seus Eventos<span class="sr-only">(current)</span></a></li>
+								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
+								<script type="text/javascript">
+								document.getElementById("usuarios").onclick = function () {
+    								location.href = "usuarios";
+								};</script>
+								<li><a id="eventos" href="eventos">Encontre Eventos</a></li>
+								<script type="text/javascript">
+								document.getElementById("eventos").onclick = function () {
+    								location.href = "eventos";
+								};</script>
+							</ul>
+						</div><!-- /.navbar-collapse -->
+						<ul class="nino-iconsGroup nav navbar-nav">
+							<li><a id="login" href="#" class="nino-search"><i class="mdi mdi-logout nino-icon"></i></a></li>
+							<script type="text/javascript">
+								document.getElementById("login").onclick = function () {
+    								location.href = "login";
+								};</script>
+						</ul>
+					</div>
+				</div><!-- /.container-fluid -->
+			</nav>
+		</div>
+	</header><!--/#header-->
+
+	<!-- Eventos
+    ================================================== -->    
+
+     <section id="editar_perfil">
+    	<div class="container">
+    		<h2 class="nino-sectionHeading">
+				<span class="nino-subHeading">Perfil</span>
+				Editar
+			</h2>
+			<center><form action="" method="post" class="FiltrarForm" enctype="multipart/form-data">
+          <div class="input-group input-group-lg">
+           <input class="form-control" type="file" name="foto" value="<%=data[0].foto%>" accept="" />
+
+           <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="name" value="<%=data[0].nome%>" id="nome" required>
+
+           <label for="email"></label><input type="email" class="form-control" placeholder="Email" name="email" value="<%=data[0].email%>" id="email" required>
+
+           <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="password" value="<%=data[0].password%>" id="senha" required>
+
+           <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="address" value="<%=data[0].endereço%>" id="endereço" required>
+
+           <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="phone" value="<%=data[0].telefone%>" id="telefone" required>  
+
+           <br>
+          <label for="food"> Preferencias Alimentares</label><br>
+              <input type="checkbox" name="low_carb" value="s"> Low Carb<br>
+              <input type="checkbox" name="vegano" value="s"> Veganismo<br>
+              <input type="checkbox" name="vegetariano" value="s"> Vegetarianismo<br>
+              <input type="checkbox" name="sem_glutem" value="s"> Sem Gluten<br>
+              <input type="checkbox" name="sem_lactose" value="s"> Sem Lactose<br>
+          <br>
+          <label for="activ"> Atividades que pratica</label><br>
+              <input type="checkbox" name="cross_fit" value="s"> Crossfit<br>
+              <input type="checkbox" name="esporte_coletivo" value="s"> Esportes Coletivos<br>
+              <input type="checkbox" name="esporte_aventura" value="s"> Esportes de Aventura<br>
+              <input type="checkbox" name="luta" value="s"> Luta<br>
+              <input type="checkbox" name="yoga" value="s"> Yoga<br>
+
+          <br>
+          &nbsp; <input class="btn btn-success" type="submit" value="Editar Perfil" onClick="editar_perfil()"></input>
+          </div>
+        </form>
+		<script type="text/javascript">
+            	function editar_perfil(){
+           
+		           $.ajax({
+		            
+		            url:"/editar_perfil/"+<%=data[0].user_id%>,
+		            type:"put",
+		            data:$("#the-form").serialize(),
+		            success:function(res){
+		                
+		                window.location.href = '/home';
+		                return false;
+		            },
+		            error:function(xhr, status, error){
+		                
+		                console.log(xhr.responseText);
+		                var err = '';
+		                $.each(JSON.parse(xhr.responseText) , function(i, item) {
+		                   
+		                     err +='<li>'+item.msg+'</li>';
+		                });
+		                $(".err-area").html(err);    
+		                return false;
+		            }
+		            
+		           });
+		        }
+    
+            </script>
+        </center>
+            <br><br>
+	
+    <!-- Footer
+    ================================================== -->
+    <footer id="footer">
+        <div class="container">
+        	<div class="row">
+        		<div class="col-md-4">
+        			<div class="colInfo">
+
+	        			
+        			</div>
+        		</div>
+   
+        	</div>
+			<div class="nino-copyright">Copyright &copy; 2017</div>
+        </div>
+    </footer><!--/#footer-->
+
+	<a href="#" id="nino-scrollToTop">Go to Top</a>
+	
+	<!-- javascript -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>	
+	<script type="text/javascript" src="js/isotope.pkgd.min.js"></script>
+	<script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.hoverdir.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.97074.js"></script>
+	<script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="js/unslider-min.js"></script>
+	<script type="text/javascript" src="js/template.js"></script>
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<!-- css3-mediaqueries.js for IE less than 9 -->
+	<!--[if lt IE 9]>
+	    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+		
+</body>
 </html>
