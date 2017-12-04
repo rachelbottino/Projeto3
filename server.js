@@ -107,6 +107,14 @@ app.get('/novo_evento', function (req, res) {
     res.sendFile('views/cria_evento.html' , { root : __dirname});
  });
 
+app.get('/update_evento', function (req, res) {
+    res.sendFile('views/modevento.html' , { root : __dirname});
+ });
+
+// app.get('/update_user', function (req, res) {
+//     res.sendFile('views/cadastra.html' , { root : __dirname});
+//  });
+
 app.get('/seus_eventos', function (req, res){
     console.log("Na pagina seus eventos...");
     console.log("Id do usuario:");
@@ -122,15 +130,68 @@ app.get('/seus_eventos', function (req, res){
 
 });
 
+app.get('/user/:usuario_id', function(req,res,next){
+
+    var usuario_id = req.params.usuario_id;
+    console.log(usuario_id);
+
+     connection.query('SELECT * FROM usuario WHERE usuario_id = ?',[usuario_id], function (error, results, fields)  {
+
+            if(error) throw error;
+
+            if(results[0].low_carb == 's'){
+                alimentar.push("Low Carb");
+                interesses.push("low_carb");
+            }
+            if(results[0].vegano == 's'){
+                alimentar.push("Vegana");
+                interesses.push("vegano");
+            }
+            if(results[0].vegetariano == 's'){
+                alimentar.push("Vegetariana");
+                interesses.push("vegetariano");
+            }
+            if(results[0].sem_glutem == 's'){
+                alimentar.push("Sem Glúten");
+                interesses.push("sem_glutem");
+            }
+            if(results[0].sem_lactose == 's'){
+                alimentar.push("Sem Lactose");
+                interesses.push("sem_lactose");
+            }
+
+            //faz lista de atividades físicas
+            if(results[0].cross_fit == 's'){
+                atividades.push("Cross Fit");
+                interesses.push("cross_fit");
+            }
+            if(results[0].esporte_coletivo == 's'){
+                atividades.push("Esportes Coletivos");
+                interesses.push("esporte_coletivo");
+            }
+            if(results[0].esporte_aventura == 's'){
+                atividades.push("Esportes de Aventura");
+                interesses.push("esporte_aventura");
+            }
+            if(results[0].luta == 's'){
+                atividades.push("Luta");
+                interesses.push("luta");
+            }
+            if(results[0].yoga == 's'){
+                atividades.push("Yoga");
+                interesses.push("yoga");
+            }
+
+            res.render('user',{users:results,lista_alimentar:alimentar, lista_atividade:atividades});
+            atividades = [];
+            interesses = [];
+    }); 
+
+});
+
 app.get('/usuarios', function (req, res){
-    console.log("Na pagina lista usuarios...");
-    filtro = req.body.filtro;
-    console.log(filtro);
-    connection.query('SELECT * FROM usuario WHERE usuario_id != ?',[user_id], function (error, users, fields) {
+    connection.query('SELECT * FROM usuario WHERE usuario_id != ?',[user_id], function (error, users, fields)  {
         if (error) throw error;            
-        console.log("Quantidade de usuario:");
-        console.log(users.length);
-        console.log(users);
         res.render('list_users', {users:users});
     });
 });
@@ -161,6 +222,9 @@ app.post('/signup', function(req, res) {
         nome : req.body.name,
         email : req.body.email,
         senha : req.body.password,
+        pais : req.body.pais,
+        estado : req.body.estado,
+        cidade : req.body.cidade,
         endereco: req.body.address,
         telefone: req.body.phone,
         pref_contato: req.body.contact,
@@ -261,7 +325,10 @@ app.post('/novo_evento', function(req, res) {
         nome:req.body.nome,
         descricao:req.body.descricao,
         data:req.body.data,
-        local:req.body.local,
+        pais : req.body.pais,
+        estado : req.body.estado,
+        cidade : req.body.cidade,
+        endereco : req.body.endereco,
         low_carb: req.body.low_carb,
         vegano : req.body.vegano,
         vegetariano : req.body.vegetariano,
@@ -299,6 +366,163 @@ app.post('/novo_evento', function(req, res) {
 console.log(new_evento);
 
 });
+
+// Update eventos
+app.get('/editar_evento/:evento_id', function(req,res,next){
+
+    var evento_id = req.params.evento_id;
+    //var evento_id = req.params.evento_id;
+
+    console.log("Editar evento:");
+    console.log(evento_id);
+    connection.query("SELECT * FROM evento WHERE evento_id = ? ",[evento_id],function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("Evento não encontrado");
+
+            res.render('editar_evento',{title:"Editar evento",data:rows});
+            console.log("Termina GET")
+    });
+});
+
+//U do CRUD -> agora é a mesma coisa do create | PUT
+app.post('/editar_evento/:evento_id', function(req,res,next){
+    console.log("Inicia PUT");
+    var evento_id = req.params.evento_id;
+    console.log("Pega ID");
+    console.log("ID:");
+    console.log(evento_id);
+
+    //dados
+    var data = {
+        nome:req.body.nome,
+        descricao:req.body.descricao,
+        data:req.body.data,
+        pais : req.body.pais,
+        estado : req.body.estado,
+        cidade : req.body.cidade,
+        endereco : req.body.endereco,
+        low_carb: req.body.low_carb,
+        vegano : req.body.vegano,
+        vegetariano : req.body.vegetariano,
+        sem_glutem : req.body.sem_glutem,
+        sem_lactose : req.body.sem_lactose,
+        cross_fit : req.body.cross_fit,
+        esporte_coletivo : req.body.esporte_coletivo,
+        esporte_aventura : req.body.esporte_aventura,
+        luta : req.body.luta,
+        yoga : req.body.yoga
+    };
+    
+    console.log("Edição:");
+    console.log(data);
+    //coloca no mysql
+    connection.query("UPDATE evento set ? WHERE evento_id = ? ",[data,evento_id], function(err, rows){
+
+           if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+          res.sendStatus(200);
+        console.log("PUT finalizado");
+    });
+});
+
+app.delete('/delete_evento/:evento_id', function(req,res,next){
+
+    var evento_id = req.params.evento_id;
+
+    console.log("Deletar evento:");
+    console.log(evento_id);
+    connection.query("DELETE FROM evento  WHERE evento_id = ? ",[evento_id], function(err, rows){
+
+         if(err){
+            console.log(err);
+            return next("Mysql error, check your query");
+         }
+
+         res.sendStatus(200);
+
+    });
+        //console.log(query.sql);
+});
+
+// Update usuário
+app.get('/update_user/:user_id', function(req,res,next){
+
+    var user_id = req.params.usuario_id;
+
+    connection.query("SELECT * FROM usuario WHERE usuario_id = ? ",[user_id],function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("User Not found");
+
+            res.render('editar_perfil',{title:"Edit user",data:rows});
+    });
+});
+
+//U do CRUD -> agora é a mesma coisa do create | PUT
+app.put('/update_user:/user_id', function(req,res,next){
+    var user_id = req.params.usuario_id;
+    var file = req.files.uploaded_image;
+    var img_name=file.name;
+    
+    var data = {
+
+        foto : img_name,
+        nome : req.body.name,
+        email : req.body.email,
+        senha : req.body.password,
+        pais : req.body.pais,
+        estado : req.body.estado,
+        cidade : req.body.cidade,
+        endereco : req.body.endereco,
+        telefone: req.body.phone,
+        pref_contato: req.body.contact,
+        low_carb: req.body.low_carb,
+        vegano : req.body.vegano,
+        vegetariano : req.body.vegetariano,
+        sem_glutem : req.body.sem_glutem,
+        sem_lactose : req.body.sem_lactose,
+        cross_fit : req.body.cross_fit,
+        esporte_coletivo : req.body.esporte_coletivo,
+        esporte_aventura : req.body.esporte_aventura,
+        luta : req.body.luta,
+        yoga : req.body.yoga
+    }; 
+
+         if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ||file.mimetype == "image/jpg"){
+                                 
+              file.mv('public/'+file.name, function(error) {
+                             
+                  if (error)
+
+                    return res.status(500).send(error);
+
+                connection.query("UPDATE usuario set ? WHERE usuario_id = ? ",[data,user_id], function(err, rows){
+                            if (error) throw error;
+                            res.redirect('/');
+                            });
+                       });
+          } else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
+          }
+});
+
 
 //start Server
 app.listen(3000, function () {

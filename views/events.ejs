@@ -149,11 +149,34 @@
 				            }
 				            %>
 								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
+								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].endereco%>, <%=events[evento].cidade%>, <%=events[evento].estado%></a><br>
 								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
 								<form class="FiltrarForm" action="/editar_evento">
-								<button class="form-control" class="btn btn-success" value="<%=events[evento].evento_id%>">Editar</button>
-								<button class="form-control" class="btn btn-success" value="<%=events[evento].evento_id%>">Apagar</button>
+								<button class="form-control" class="btn btn-success" nome="EditarButton" id="EditarButton" value="<%=events[evento].evento_id%>"><a href="editar_evento/<%=events[evento].evento_id%>">Editar</a></button>
+
+								<button class="form-control" class="btn btn-success" nome="DeleteButton" id="DeleteButton" value="<%=events[evento].evento_id%>"><a href="javascript:void(0)" onClick="delete_evento(<%=events[evento].evento_id%>)">Apagar</a></button>
+								<script type="text/javascript">
+								    
+								    function delete_evento(evento_id){
+								    
+								        $.ajax({
+								            url:"/delete_evento/"+evento_id,
+								            type: 'DELETE',
+								            success: function(res) {
+								                
+								                window.location.reload();
+								                return false;
+								            },
+								            error:function(xhr, status, error){
+								            
+								                console.log(xhr.responseText);
+								                alert("Error deleting");
+								                return false;
+								            }
+								        });
+								    }
+
+								</script>
 								</form>
 							</div>
 						</article>
@@ -182,7 +205,7 @@
   				width="600"
   				height="450"
   				frameborder="0" style="border:0"
-  				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDOx1AA-PnUiKf-9YGL8Ozx1hshfwnTNlk&q=Insper" allowfullscreen>
+  				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDOx1AA-PnUiKf-9YGL8Ozx1hshfwnTNlk&q=Rua+Dr+Homem+de+Melo,807" allowfullscreen>
 				</iframe>
 	    	</div>
     	</div>
