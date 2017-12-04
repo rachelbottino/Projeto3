@@ -533,7 +533,4 @@ app.post('/editar_perfil/:usuario_id', function(req,res,next){
     });
 
 //start Server
-var server = app.listen(process.env.PORT || 3000,function(){
-    console.log("Servidor rodando na porta %s",server.address().port);
-
-});
+var server = app.listen(process.env.PORT || 3000);
