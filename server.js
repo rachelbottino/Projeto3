@@ -538,7 +538,7 @@ var server = app.listen(3000,function(){
     console.log("Servidor rodando na porta %s",server.address().port);
 
 });
-=======
+
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
