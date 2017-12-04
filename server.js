@@ -315,10 +315,12 @@ console.log(new_evento);
 });
 
 // Update eventos
-app.get('/update_evento', function(req,res,next){
+app.get('/update_evento/:evento_id', function(req,res,next){
 
-    var evento_id = req.body.EditarButton;
+    var evento_id = req.params.evento_id;
     //var evento_id = req.params.evento_id;
+
+    console.log("Editar evento:");
     console.log(evento_id);
     req.getConnection(function(err,conn){
 
@@ -343,7 +345,7 @@ app.get('/update_evento', function(req,res,next){
 });
 
 //U do CRUD -> agora é a mesma coisa do create | PUT
-app.put('/update_evento', function(req,res,next){
+app.put('/update_evento/:evento_id', function(req,res,next){
     //var evento_id = req.params.evento_id;
 
     //dados
@@ -365,11 +367,7 @@ app.put('/update_evento', function(req,res,next){
 };
 
     //coloca no mysql
-    req.getConnection(function (err, conn){
-
-        if (err) return next("Cannot Connect");
-
-        var query = conn.query("UPDATE evento set ? WHERE evento_id = ? ",[data,evento_id], function(err, rows){
+    connection.query("UPDATE evento set ? WHERE evento_id = ? ",[data,evento_id], function(err, rows){
 
            if(err){
                 console.log(err);
@@ -384,29 +382,25 @@ app.put('/update_evento', function(req,res,next){
 
 });
 
-app.delete(function(req,res,next){
+app.delete('/delete_evento/:evento_id', function(req,res,next){
 
-    var evento_id = req.params.DeleteButton;
+    var evento_id = req.params.evento_id;
 
+    console.log("Deletar evento:");
     console.log(evento_id);
-     req.getConnection(function (err, conn) {
+    connection.query("DELETE FROM evento  WHERE evento_id = ? ",[evento_id], function(err, rows){
 
-        if (err) return next("Cannot Connect");
+         if(err){
+            console.log(err);
+            return next("Mysql error, check your query");
+         }
 
-        var query = conn.query("DELETE FROM evento  WHERE evento_id = ? ",[evento_id], function(err, rows){
+         res.sendStatus(200);
 
-             if(err){
-                console.log(err);
-                return next("Mysql error, check your query");
-             }
-
-             res.sendStatus(200);
-
-        });
+    });
         //console.log(query.sql);
 
      });
-});
 
 
 

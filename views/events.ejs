@@ -70,7 +70,8 @@
 							<script type="text/javascript">
 								document.getElementById("login").onclick = function () {
     								location.href = "login";
-								};</script>
+								};
+								</script>
 						</ul>
 					</div>
 				</div><!-- /.container-fluid -->
@@ -154,7 +155,29 @@
 								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
 								<form class="FiltrarForm" action="/editar_evento">
 								<button class="form-control" class="btn btn-success" nome="EditarButton" id="EditarButton" value="<%=events[evento].evento_id%>">Editar</button>
-								<button class="form-control" class="btn btn-success" nome="DeleteButton" id="DeleteButton" value="<%=events[evento].evento_id%>">Apagar</button>
+								<button class="form-control" class="btn btn-success" nome="DeleteButton" id="DeleteButton" value="<%=events[evento].evento_id%>"><a href="javascript:void(0)" onClick="delete_evento(<%=events[evento].evento_id%>)">Apagar</a></button>
+								<script type="text/javascript">
+									
+								    function delete_evento(evento_id){
+								    
+								        $.ajax({
+								            url:"/delete_evento/"+evento_id,
+								            type: 'DELETE',
+								            success: function(res) {
+								                
+								                window.location.reload();
+								                return false;
+								            },
+								            error:function(xhr, status, error){
+								            
+								                console.log(xhr.responseText);
+								                alert("Error deleting");
+								                return false;
+								            }
+								        });
+								    }
+
+								</script>
 								</form>
 							</div>
 						</article>
