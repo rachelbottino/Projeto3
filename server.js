@@ -27,10 +27,10 @@ app.use(fileUpload());
 
 /*MySql connection*/
 var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : '123456',
-    database : 'projeto3'
+    host : 'us-cdbr-iron-east-05.cleardb.net',
+    user : 'bdbf6d6df359b5',
+    password : 'd9ccd38c',
+    database : 'heroku_1dc938df9144cb9'
 })
 
 // esse é o mapeamento mais basico
