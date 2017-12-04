@@ -22,25 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
 
-	<script>
-      $(document).ready(function(){
-        var photo, nome, descricao, data, local, activ, food;
-        $("#submit").click(function(){
-          photo = $("#photo").val();
-          nome=$("#nome").val();
-          descricao=$("#descricao").val();
-          data=$("#data").val();
-      	  local = $("#local").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/edita_evento",{photo: photo, nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
-            if(data==='done')
-              {
-                alert("success");
-              }
-          });
-          });
-        });
+  <script>
     </script>
 
 </head>
@@ -110,13 +92,18 @@
 				<span class="nino-subHeading">Eventos</span>
 				Editar Evento
 			</h2>
-			<center><form action="/edita_evento" method="post" class="FiltrarForm"  enctype="multipart/form-data">
+			<center><form action="" method="post" class="FiltrarForm"  enctype="multipart/form-data">
               <div class="input-group input-group-lg">
-              <input class="form-control" type="file" name="foto" accept="" />
-              <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
-              <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
-              <label for="data"></label><br><input type="date" name="data" id="data" class="form-control"/>
-              <label for="local"></label><br><input type="text" name="local" id="local" class="form-control" placeholder="Local" />
+              <input class="form-control" type="file" name="foto" value="<%=data[0].foto%>" accept="" />
+
+              <label for="nome"></label><br><input type="text" name="nome" value="<%=data[0].nome%>" id="nome" class="form-control" placeholder="Nome do Evento" />
+
+              <label for="descricao"></label><br><input type="text" name="descricao" value="<%=data[0].descricao%>" id="descricao" class="form-control" placeholder="Descrição"/>
+
+              <label for="data"></label><br><input type="date" name="data" value="<%=data[0].data%>" id="data" class="form-control"/>
+
+              <label for="local"></label><br><input type="text" name="local" value="<%=data[0].local%>" id="local" class="form-control" placeholder="Local" />
+
               <br>
               <br><br>
               <label for="food"> Preferencias Alimentares</label><br>
@@ -134,9 +121,38 @@
               <input type="checkbox" name="luta" value="s"> Luta<br>
               <input type="checkbox" name="yoga" value="s"> Yoga<br> 
               <br>
-              <input class="btn btn-success" type="submit" value="Criar Evento"></input>
+              &nbsp; <input class="btn btn-success" type="submit" value="Editar Evento" onClick="editar_evento()"></input>
               </div>
-            </form></center>
+            </form>
+            <script type="text/javascript">
+            	function editar_evento(){
+           
+		           $.ajax({
+		            
+		            url:"/editar_evento/"+<%=data[0].user_id%>,
+		            type:"put",
+		            data:$("#the-form").serialize(),
+		            success:function(res){
+		                
+		                window.location.href = '/seus_eventos';
+		                return false;
+		            },
+		            error:function(xhr, status, error){
+		                
+		                console.log(xhr.responseText);
+		                var err = '';
+		                $.each(JSON.parse(xhr.responseText) , function(i, item) {
+		                   
+		                     err +='<li>'+item.msg+'</li>';
+		                });
+		                $(".err-area").html(err);    
+		                return false;
+		            }
+		            
+		           });
+		        }
+    
+            </script></center>
             <br><br>
 	
     <!-- Footer

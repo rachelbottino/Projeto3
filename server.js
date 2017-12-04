@@ -315,18 +315,14 @@ console.log(new_evento);
 });
 
 // Update eventos
-app.get('/update_evento/:evento_id', function(req,res,next){
+app.get('/editar_evento/:evento_id', function(req,res,next){
 
     var evento_id = req.params.evento_id;
     //var evento_id = req.params.evento_id;
 
     console.log("Editar evento:");
     console.log(evento_id);
-    req.getConnection(function(err,conn){
-
-        if (err) return next("Cannot Connect");
-
-        var query = conn.query("SELECT * FROM evento WHERE evento_id = ? ",[evento_id],function(err,rows){
+    connection.query("SELECT * FROM evento WHERE evento_id = ? ",[evento_id],function(err,rows){
 
             if(err){
                 console.log(err);
@@ -337,16 +333,20 @@ app.get('/update_evento/:evento_id', function(req,res,next){
             if(rows.length < 1)
                 return res.send("Evento não encontrado");
 
-            res.render('edit',{title:"Editar evento",data:rows});
+            res.render('editar_evento',{title:"Editar evento",data:rows});
+            console.log("Termina GET")
         });
 
     });
 
-});
 
 //U do CRUD -> agora é a mesma coisa do create | PUT
-app.put('/update_evento/:evento_id', function(req,res,next){
-    //var evento_id = req.params.evento_id;
+app.post('/editar_evento/:evento_id', function(req,res,next){
+    console.log("Inicia PUT")
+    var evento_id = req.params.evento_id;
+    console.log("Pega ID")
+    console.log("ID:")
+    console.log(evento_id)
 
     //dados
     var data = {
@@ -365,7 +365,10 @@ app.put('/update_evento/:evento_id', function(req,res,next){
         luta : req.body.luta,
         yoga : req.body.yoga
 };
+    
+    console.log("Edição:")
 
+    console.log(data)
     //coloca no mysql
     connection.query("UPDATE evento set ? WHERE evento_id = ? ",[data,evento_id], function(err, rows){
 
@@ -375,12 +378,9 @@ app.put('/update_evento/:evento_id', function(req,res,next){
            }
 
           res.sendStatus(200);
-
+        console.log("PUT finalizado")
         });
-
      });
-
-});
 
 app.delete('/delete_evento/:evento_id', function(req,res,next){
 
@@ -405,15 +405,11 @@ app.delete('/delete_evento/:evento_id', function(req,res,next){
 
 
 // Update usuário
-app.get('/update_user', function(req,res,next){
+app.get('/update_user:/user_id', function(req,res,next){
 
     var user_id = req.params.usuario_id;
 
-    req.getConnection(function(err,conn){
-
-        if (err) return next("Cannot Connect");
-
-        var query = conn.query("SELECT * FROM usuario WHERE usuario_id = ? ",[user_id],function(err,rows){
+    connection.query("SELECT * FROM usuario WHERE usuario_id = ? ",[user_id],function(err,rows){
 
             if(err){
                 console.log(err);
@@ -429,10 +425,8 @@ app.get('/update_user', function(req,res,next){
 
     });
 
-});
-
 //U do CRUD -> agora é a mesma coisa do create | PUT
-app.put('/update_user', function(req,res,next){
+app.put('/update_user:/user_id', function(req,res,next){
     var user_id = req.params.usuario_id;
     var file = req.files.uploaded_image;
     var img_name=file.name;
