@@ -21,31 +21,9 @@
 	<link rel="stylesheet" type="text/css" href="css/prettyPhoto.css" />
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
-	<!--
-	<script>
-      $(document).ready(function(){
-        var photo, nome, descricao, data,pais, estado, cidade, endereco, activ, food;
-        $("#submit").click(function(){
-          photo = $("#photo").val();
-          nome=$("#nome").val();
-          descricao=$("#descricao").val();
-          data=$("#data").val();
-      	  pais = $("#pais").val();
-          estado = $("#estado").val();
-          cidade = $("#cidade").val();
-      	  endereco = $("#endereco").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/edita_evento",{photo: photo, nome:nome, descricao:descricao, data:data, pais:pais, estado:estado, cidade:cidade, endereco:endereco, activ:activ, food:food}, function(data){
-            if(data==='done')
-              {
-                alert("success");
-              }
-          });
-          });
-        });
+
+  <script>
     </script>
-    -->
 
 </head>
 
@@ -113,16 +91,23 @@
     		<h2 class="nino-sectionHeading">
 				<span class="nino-subHeading">Eventos</span>
 				Editar Evento
-			</h2>
+			</h2></h2>
 			<center><form action="" method="post" class="FiltrarForm"  enctype="multipart/form-data">
               <div class="input-group input-group-lg">
               <input class="form-control" type="file" name="foto" value="<%=data[0].foto%>" accept="" />
+
               <label for="nome"></label><br><input type="text" name="nome" value="<%=data[0].nome%>" id="nome" class="form-control" placeholder="<%=data[0].nome%>" />
+
               <label for="descricao"></label><br><input type="text" name="descricao" value="<%=data[0].descricao%>" id="descricao" class="form-control" placeholder="<%=data[0].descricao%>"/>
+
               <label for="data"></label><br><input type="date" name="data" value="<%=data[0].data%>" id="data" class="form-control"/>
-              <label for="pais"></label><input type="text" class="form-control" placeholder="<%=data[0].pais%>" value="<%=data[0].pais%>" name="pais" id="pais" required>
-           	  <label for="estado"></label><input type="text" class="form-control" value="<%=data[0].estado%>" placeholder="<%=data[0].estado%>" name="estado" id="estado" required>
-              <label for="cidade"></label><input type="text" class="form-control" placeholder="<%=data[0].cidade%>" name="cidade" value="<%=data[0].cidade%>" id="cidade" required>
+              
+              <label for="pais"></label><br><input type="text" class="form-control" placeholder="<%=data[0].pais%>" value="<%=data[0].pais%>" name="pais" id="pais" required>
+
+           	  <label for="estado"></label><br><input type="text" class="form-control" value="<%=data[0].estado%>" placeholder="<%=data[0].estado%>" name="estado" id="estado" required>
+
+              <label for="cidade"></label><br><input type="text" class="form-control" placeholder="<%=data[0].cidade%>" name="cidade" value="<%=data[0].cidade%>" id="cidade" required>
+
               <label for="endereco"></label><br><input type="text" name="endereco" value="<%=data[0].endereco%>" id="local" class="form-control" placeholder="<%=data[0].endereco%>" />
               <br>
               <br><br>
@@ -141,9 +126,10 @@
               <input type="checkbox" name="luta" value="s"> Luta<br>
               <input type="checkbox" name="yoga" value="s"> Yoga<br> 
               <br>
-               &nbsp; <input class="btn btn-success" type="submit" value="Editar Evento" onClick="editar_evento()"></input>
+              &nbsp; <input class="btn btn-success" type="submit" value="Editar Evento" onClick="editar_evento()"></input>
               </div>
-            </form><script type="text/javascript">
+            </form>
+            <script type="text/javascript">
             	function editar_evento(){
            
 		           $.ajax({

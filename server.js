@@ -175,7 +175,7 @@ app.get('/user/:usuario_id', function(req,res,next){
                 interesses.push("yoga");
             }
 
-            res.render('user',{users:results,lista_alimentar:alimentar, lista_atividade:atividades});
+            res.render('list_users',{users:results,lista_alimentar:alimentar, lista_atividade:atividades});
             atividades = [];
             interesses = [];
     }); 
@@ -430,7 +430,7 @@ app.post('/editar_evento/:evento_id', function(req,res,next){
                 return next("Mysql error, check your query");
             }
 
-          res.sendStatus(200);
+        res.sendStatus(200);
         console.log("PUT finalizado");
     });
 });
@@ -527,7 +527,7 @@ app.post('/editar_perfil/:usuario_id', function(req,res,next){
                 console.log(err);
                 return next("Mysql error, check your query");
            }
-            res.redirect('/');
+            res.redirect('/perfil');
             console.log("Done!")
             });
     });
