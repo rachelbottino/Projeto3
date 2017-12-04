@@ -29,7 +29,7 @@ app.use(fileUpload());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'rangobom971025',
+    password : '123456',
     database : 'projeto3'
 })
 
@@ -1016,7 +1016,7 @@ app.post('/editar_perfil/:usuario_id', function(req,res,next){
     });
 
 //start Server
-var server = app.listen(3000,function(){
+var server = app.listen(process.env.PORT || 3000,function(){
     console.log("Servidor rodando na porta %s",server.address().port);
 
 });
