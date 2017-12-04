@@ -86,26 +86,6 @@
 				Criados pelos usuários
 			</h2>
 
-			<form action="eventos" class="FiltrarForm" method="post">
-				<div class="input-group input-group-lg">
-					
-					<select class="form-control" placeholder="Interesse" name="filtro">
-						<option value="low_carb">Low Carb</option>
-						<option value="vegano">Vegano</option>
-						<option value="vegetariano">Vegetariano</option>
-						<option value="sem_glutem">Sem glúten</option>
-						<option value="sem_lactose">Sem lactose</option>
-						<option value="cross_fit">Cross fit</option>
-						<option value="esporte_coletivo">Esporte coletivo</option>
-						<option value="esporte_aventura">Esporte de aventura</option>
-						<option value="luta">Luta</option>
-						<option value="yoga">Yoga</option>
-					</select>
-					<span class="input-group-btn">
-						<button class="btn btn-success" type="submit">Filtrar</button>
-					</span>
-				</div>
-			</form>
 
 			<div class="sectionContent">
 				<div class="row"><% for(var evento=0; evento < events.length; evento++) { %>
@@ -161,7 +141,7 @@
 				            }
 				            %>
 								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
-								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].local%></a><br>
+								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].endereco%>, <%=events[evento].cidade%>, <%=events[evento].estado%></a><br>
 								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
 							</div>
 						</article>

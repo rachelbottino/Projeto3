@@ -24,18 +24,21 @@
 
   <script>
       $(document).ready(function(){
-        var photo, name, email,password, address, phone, contact, food, activ;
+        var photo, name, email,password, pais, estado, cidade, address, phone, contact, food, activ;
         $("#submit").click(function(){
           name=$("#name").val();
           email=$("#email").val();
           password=$("#password").val();
           photo = $("#photo").val();
+          pais = $("#pais").val();
+          estado = $("#estado").val();
+          cidade = $("#cidade").val();
           address = $("#address").val();
           phone = $("#phone").val();
           contact = $("#contact").val();
           activ = $("#activ").val();
           food = $("#food").val();
-          $.post("http://localhost:3000/signup",{photo: photo, name: name, email: email,password: password, address:address,phone:phone,contact:contact, food:food, activ:activ}, function(data){
+          $.post("http://localhost:3000/signup",{photo:photo, name:name, email:email, password:password, pais:pais, estado:estado, cidade:cidade, address:address ,phone:phone, contact:contact, food:food, activ:activ}, function(data){
               if(data==='done'){
                   alert("success");
               }
@@ -77,6 +80,9 @@
            <label for="name"></label><input type="text" class="form-control" placeholder="Nome" name="name" id="nome" required>
            <label for="email"></label><input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
            <label for="password"></label><input type="password" class="form-control" placeholder="Senha" name="password" id="senha" required>
+           <label for="pais"></label><input type="text" class="form-control" placeholder="País" name="pais" id="pais" required>
+           <label for="estado"></label><input type="text" class="form-control" placeholder="Estado" name="estado" id="estado" required>
+           <label for="cidade"></label><input type="text" class="form-control" placeholder="Cidade" name="cidade" id="cidade" required>
            <label for="address"></label><input type="text" class="form-control" placeholder="Endereço" name="address" id="endereço" required>
            <label for="phone"></label><input type="text" class="form-control" placeholder="Telefone" name="phone" id="telefone" required>  
            <br>

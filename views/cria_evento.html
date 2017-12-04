@@ -24,16 +24,19 @@
 
 	<script>
       $(document).ready(function(){
-        var photo, nome, descricao, data, local, activ, food;
+        var photo, nome, descricao, data, pais, estado, cidade, endereco, activ, food;
         $("#submit").click(function(){
           photo = $("#photo").val();
           nome=$("#nome").val();
           descricao=$("#descricao").val();
           data=$("#data").val();
-      	  local = $("#local").val();
+          pais = $("#pais").val();
+          estado = $("#estado").val();
+          cidade = $("#cidade").val();
+      	  endereco = $("#endereco").val();
           activ = $("#activ").val();
           food = $("#food").val();
-          $.post("http://localhost:3000/novo_evento",{photo: photo, nome:nome, descricao:descricao, data:data, local:local, activ:activ, food:food}, function(data){
+          $.post("http://localhost:3000/novo_evento",{photo:photo, nome:nome, descricao:descricao, data:data, pais:pais, estado:estado, cidade:cidade, endereco:endereco, activ:activ, food:food}, function(data){
             if(data==='done')
               {
                 alert("success");
@@ -116,7 +119,13 @@
               <label for="nome"></label><br><input type="text" name="nome" id="nome" class="form-control" placeholder="Nome do Evento" />
               <label for="descricao"></label><br><input type="text" name="descricao" id="descricao" class="form-control" placeholder="Descrição"/>
               <label for="data"></label><br><input type="date" name="data" id="data" class="form-control"/>
-              <label for="local"></label><br><input type="text" name="local" id="local" class="form-control" placeholder="Local" />
+              <label for="pais"></label><input type="text" class="form-control" placeholder="País" name="pais" id="pais" required>
+
+           	  <label for="estado"></label><input type="text" class="form-control" placeholder="Estado" name="estado" id="estado" required>
+
+              <label for="cidade"></label><input type="text" class="form-control" placeholder="Cidade" name="cidade" id="cidade" required>
+
+              <label for="endereco"></label><br><input type="text" name="endereco" id="local" class="form-control" placeholder="Endereço" />
               <br>
               <br><br>
               <label for="food"> Preferencias Alimentares</label><br>

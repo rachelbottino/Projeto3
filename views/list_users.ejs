@@ -99,38 +99,18 @@
 				<span class="nino-subHeading">Encontre usuários</span>
 				Com interesses parecidos com os seus
 			</h2>
-			<form action="usuarios" class="FiltrarForm" method="get">
-				<div class="input-group input-group-lg">
-					
-					<label for="filtro"></label><select class="form-control" placeholder="Interesse" name="filtro">
-						<option value="low_carb">Low Carb</option>
-						<option value="vegano">Vegano</option>
-						<option value="vegetariano">Vegetariano</option>
-						<option value="sem_glutem">Sem glúten</option>
-						<option value="sem_lactose">Sem lactose</option>
-						<option value="cross_fit">Cross fit</option>
-						<option value="esporte_coletivo">Esporte coletivo</option>
-						<option value="esporte_aventura">Esporte de aventura</option>
-						<option value="luta">Luta</option>
-						<option value="yoga">Yoga</option>
-					</select>
-					<span class="input-group-btn">
-						<button class="btn btn-success" type="submit">Filtrar</button>
-					</span>
-				</div>
-			</form>
 			<br>
 		</div>
 		<div class="sectionContent">
 			<ul class="nino-portfolioItems">
 				<% for(var usuario = 0; usuario < users.length; usuario++){ %>
 				<li class="item">
-					<a class="nino-prettyPhoto" rel="prettyPhoto[gallery1]" title="Development Mobile" href="images/our-work/img-1.jpg">
-						<img src="images/usuarios/img-3.jpg"/>
+					<a class="nino-prettyPhoto" href="user/<%=users[usuario].usuario_id%>"/>
+						<img src="http://localhost:3000/<%=users[usuario].foto%>"/>
 						<div class="overlay">
-							<div  href="user.html" class="content">
-								<i href="user.html" class="mdi mdi-account nino-icon"></i>
-								<h4 class="title" href="user.html"><%= users[usuario].nome %></h4>
+							<div class="content">
+								<i class="mdi mdi-account nino-icon"></i>
+								<h4 class="title"><%= users[usuario].nome %></h4>
 								<%var interesses = [];
 								if(users[usuario].low_carb=='s'){
 									interesses.push(" Low carb");
@@ -165,7 +145,6 @@
 
 					            %>
 								<span class="desc"><%=interesses%></span>
-								<button href="user.html">ver perfil</button>
 							</div>
 						</div>
 					</a>
