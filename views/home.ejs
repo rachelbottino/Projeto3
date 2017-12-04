@@ -143,8 +143,8 @@
 					<div class="item">
 						<div class="overlay" href="#">
 							<div class="content">
-								<a class="nino-icon" href="update_user"><i class="mdi mdi-account"></i></a>
-								<p class="nino-sectionDesc"> Editar Perfil</p>
+								<a class="nino-icon" value="<%=data[0].usuario_id%>" href="editar_perfil/<%=data[0].usuario_id%>"><i class="mdi mdi-account"></i></a>
+								<p class="nino-sectionDesc" value="<%=data[0].usuario_id%>"> Editar Perfil</p>
 							</div>
 							
  								<img width="250px" height="400px" alt="User Pic" src="http://localhost:3000/<%=data[0].foto%>">

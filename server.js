@@ -29,7 +29,7 @@ app.use(fileUpload());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'adgjlra1',
+    password : 'rangobom971025',
     database : 'projeto3'
 })
 
@@ -107,14 +107,7 @@ app.get('/novo_evento', function (req, res) {
     res.sendFile('views/cria_evento.html' , { root : __dirname});
  });
 
-app.get('/update_evento', function (req, res) {
-    res.sendFile('views/modevento.html' , { root : __dirname});
- });
-
-// app.get('/update_user', function (req, res) {
-//     res.sendFile('views/cadastra.html' , { root : __dirname});
-//  });
-
+// Listar eventos do usuario
 app.get('/seus_eventos', function (req, res){
     console.log("Na pagina seus eventos...");
     console.log("Id do usuario:");
@@ -208,6 +201,7 @@ app.get('/eventos', function (req, res){
     });
 });
 
+// Criar usuário
 app.post('/signup', function(req, res) {
 
     message = '';
@@ -263,6 +257,7 @@ app.post('/signup', function(req, res) {
  
 });
 
+// Login
 app.post('/login', function(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
@@ -313,6 +308,7 @@ app.post('/eventos', function(req, res){
 
 });
 
+// Criar evento
 app.post('/novo_evento', function(req, res) {
     console.log("novo evento usuario id:");
     console.log(user_id);
@@ -399,8 +395,12 @@ app.post('/editar_evento/:evento_id', function(req,res,next){
     console.log("ID:");
     console.log(evento_id);
 
+    var file = req.files.foto;
+    var img_name=file.name;
+
     //dados
     var data = {
+        foto: img_name,
         nome:req.body.nome,
         descricao:req.body.descricao,
         data:req.body.data,
@@ -443,21 +443,25 @@ app.delete('/delete_evento/:evento_id', function(req,res,next){
     console.log(evento_id);
     connection.query("DELETE FROM evento  WHERE evento_id = ? ",[evento_id], function(err, rows){
 
-         if(err){
-            console.log(err);
-            return next("Mysql error, check your query");
-         }
+        if(err){
+           console.log(err);
+           return next("Mysql error, check your query");
+        }
 
-         res.sendStatus(200);
+        res.sendStatus(200);
+        console.log("Deletado")
 
     });
         //console.log(query.sql);
 });
 
 // Update usuário
-app.get('/update_user/:user_id', function(req,res,next){
+app.get('/editar_perfil/:usuario_id', function(req,res,next){
+    console.log("Inicia GET")
 
     var user_id = req.params.usuario_id;
+    console.log("Editar perfil:");
+    console.log(user_id);
 
     connection.query("SELECT * FROM usuario WHERE usuario_id = ? ",[user_id],function(err,rows){
 
@@ -470,17 +474,26 @@ app.get('/update_user/:user_id', function(req,res,next){
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('editar_perfil',{title:"Edit user",data:rows});
+            res.render('editar_perfil',{title:"Editar Perfil",data:rows});
+            console.log("Termina GET")
+        });
+
     });
-});
 
 //U do CRUD -> agora é a mesma coisa do create | PUT
-app.put('/update_user:/user_id', function(req,res,next){
+app.post('/editar_perfil/:usuario_id', function(req,res,next){
+    console.log("Inicia POST")
     var user_id = req.params.usuario_id;
-    var file = req.files.uploaded_image;
-    var img_name=file.name;
+    var file = req.files.foto;
+    var img_name= file.name;
+
+    console.log("Editando:")
+    console.log(user_id)
     
-    var data = {
+    var file = req.files.foto;
+    var img_name=file.name;
+
+    var edit_user = {
 
         foto : img_name,
         nome : req.body.name,
@@ -503,29 +516,25 @@ app.put('/update_user:/user_id', function(req,res,next){
         luta : req.body.luta,
         yoga : req.body.yoga
     }; 
+    
+    console.log("Edição:")
 
-         if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ||file.mimetype == "image/jpg"){
-                                 
-              file.mv('public/'+file.name, function(error) {
-                             
-                  if (error)
+    console.log(edit_user)
 
-                    return res.status(500).send(error);
-
-                connection.query("UPDATE usuario set ? WHERE usuario_id = ? ",[data,user_id], function(err, rows){
-                            if (error) throw error;
-                            res.redirect('/');
-                            });
-                       });
-          } else {
-            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
-            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
-          }
-});
+    connection.query("UPDATE usuario SET ? WHERE usuario_id = ? ",[edit_user,user_id], function(err, rows){
+        
+           if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+           }
+            res.redirect('/');
+            console.log("Done!")
+            });
+    });
 
 
 //start Server
-app.listen(3000, function () {
-    console.log('Servidor rodando na porta 3000!')
-})
-;
+var server = app.listen(3000,function(){
+    console.log("Servidor rodando na porta %s",server.address().port);
+
+});

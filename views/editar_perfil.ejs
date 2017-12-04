@@ -22,32 +22,8 @@
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
 
-	<!--
-	<script>
-      $(document).ready(function(){
-        var photo, name, email,password, pais, estado, cidade, address, phone, contact, food, activ;
-        $("#submit").click(function(){
-          name=$("#name").val();
-          email=$("#email").val();
-          password=$("#password").val();
-          photo = $("#photo").val();
-          pais = $("#pais").val();
-          estado = $("#estado").val();
-          cidade = $("#cidade").val();
-          address = $("#address").val();
-          phone = $("#phone").val();
-          contact = $("#contact").val();
-          activ = $("#activ").val();
-          food = $("#food").val();
-          $.post("http://localhost:3000/editar_perfil",{photo:photo, name:name, email:email, password:password, pais:pais, estado:estado, cidade:cidade, address:address ,phone:phone, contact:contact, food:food, activ:activ}, function(data){
-              if(data==='done'){
-                  alert("success");
-              }
-            });
-          });
-        });
+		<script>
     </script>
-    -->
 
 </head>
 
@@ -110,7 +86,7 @@
 	<!-- Eventos
     ================================================== -->    
 
-     <section id="seus_eventos">
+     <section id="editar_perfil">
     	<div class="container">
     		<h2 class="nino-sectionHeading">
 				<span class="nino-subHeading">Perfil</span>
@@ -173,7 +149,8 @@
 		           });
 		        }
     
-            </script></center>
+            </script>
+            </center>
             <br><br>
 	
     <!-- Footer
