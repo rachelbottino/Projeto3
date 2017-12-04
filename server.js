@@ -429,8 +429,8 @@ app.post('/editar_evento/:evento_id', function(req,res,next){
                 console.log(err);
                 return next("Mysql error, check your query");
             }
-
-        res.sendStatus(200);
+        res.redirect('/seus_eventos');
+        //res.sendStatus(200);
         console.log("PUT finalizado");
     });
 });
