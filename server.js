@@ -321,10 +321,7 @@ app.post('/login', function(req, res) {
 });
 
 
-app.post('/eventos', function(req, res){
-    console.log(interesses);
 
-});
 
 // Criar evento
 app.post('/novo_evento', function(req, res) {
