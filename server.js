@@ -27,11 +27,27 @@ app.use(fileUpload());
 
 /*MySql connection*/
 var connection = mysql.createConnection({
-    host : 'us-cdbr-iron-east-05.cleardb.net',
-    user : 'bdbf6d6df359b5',
-    password : 'd9ccd38c',
-    database : 'heroku_1dc938df9144cb9'
+    host : 'localhost',
+    user : 'root',
+    password : 'rangobom971025',
+    database : 'projeto3'
 })
+
+// var redis = require('redis');
+// var client = redis.createClient(6379, 'localhost');
+ 
+// app.use(express.session({
+//     secret: 'a4f8071f-c873-4447-8ee2',
+//     cookie: { maxAge: 2628000000 },
+//     store: new (require('express-sessions'))({
+//         storage: 'redis',
+//         instance: client, // optional 
+//         host: 'localhost', // optional 
+//         port: 6379, // optional 
+//         collection: 'sessions', // optional 
+//         expire: 86400 // optional 
+//     })
+// }));
 
 // esse é o mapeamento mais basico
 app.get('/', function (req, res) {
@@ -534,4 +550,7 @@ app.post('/editar_perfil/:usuario_id', function(req,res,next){
 
 
 //start Server
-var server = app.listen(process.env.PORT || 3000); 
+var server = app.listen(3000,function(){
+    console.log("Servidor rodando na porta %s",server.address().port);
+
+});

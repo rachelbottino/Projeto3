@@ -41,20 +41,20 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="homepage.html">Habit Matcher</a>
+						<a class="navbar-brand" href="perfil">Habit Matcher</a>
 					</div>
 
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="nino-menuItem pull-right">
 						<div class="collapse navbar-collapse pull-left" id="nino-navbar-collapse">
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="#nino-header">Seu Perfil<span class="sr-only">(current)</span></a></li>
-								<li><a id="seus_eventos" href="seus_eventos">Seus Eventos</a></li>
+								<li class="active"><a href="perfil">Meu Perfil<span class="sr-only">(current)</span></a></li>
+								<li><a id="seus_eventos" href="seus_eventos">Meus Eventos</a></li>
 								<script type="text/javascript">
 								document.getElementById("seus_eventos").onclick = function () {
     								location.href = "seus_eventos";
 								};</script>
-								<li><a id="usuarios" href="usuarios">Encontre Usuários</a></li>
+								<li><a id="usuarios" href="usuarios">Encontre Pessoas</a></li>
 								<script type="text/javascript">
 								document.getElementById("usuarios").onclick = function () {
     								location.href = "usuarios";
@@ -83,26 +83,26 @@
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
 						<h2 class="nino-sectionHeading">
-						<span class="nino-subHeading">Bem Vindo!</span>
-							ao <br>Habit Matcher
+						<span class="nino-subHeading">Bem vindo <br>ao</span>
+							Habit Matcher
 						</h2>
 					</div>
 					<div class="item">
 						<h2 class="nino-sectionHeading">
 							<span class="nino-subHeading">Encontre pessoas</span>
-							Com interesses <br>parecidos 
+							com mesmos<br>interesses
 						</h2>
 					</div>
 					<div class="item">
 						<h2 class="nino-sectionHeading">
 							<span class="nino-subHeading">Crie eventos</span>
-							Para toda a <br>comunidade
+							para toda a <br>comunidade
 						</h2>
 					</div>
 					<div class="item">
 						<h2 class="nino-sectionHeading">
-							<span class="nino-subHeading">Participe</span>
-							De eventos de<br>outros usuarios
+							<span class="nino-subHeading">Descubra</span>
+							eventos de<br>outras pessoas
 						</h2>
 					</div>
 				</div>
@@ -160,6 +160,7 @@
     <section id="interesses">
     	<div class="container">
     		<div layout="row" class="verticalStretch">
+    		
     			<%
     			t_ativ = lista_atividade.length;
     			for(var i=0; i < t_ativ; i++) { %>
@@ -170,7 +171,7 @@
 
     			<%for(var j=5-t_ativ; j>0; j--) { %>
     			<div class="item">
-    				<a href="#" class="nino-icon"><i class="mdi mdi-plus"></i></a>
+    				<a href="editar_perfil/<%=data[0].usuario_id%>" class="nino-icon"><i class="mdi mdi-plus"></i></a>
     			</div>
     			<% } %>
     		</div>
@@ -192,7 +193,7 @@
 
     			<%for(var j=5-t_alim; j>0; j--) { %>
     			<div class="item">
-    				<a href="#" class="nino-icon"><i class="mdi mdi-plus"></i></a>
+    				<a href="editar_perfil/<%=data[0].usuario_id%>" class="nino-icon"><i class="mdi mdi-plus"></i></a>
     			</div>
     			<% } %>
     		</div>
