@@ -36,7 +36,7 @@
       	  endereco = $("#endereco").val();
           activ = $("#activ").val();
           food = $("#food").val();
-          $.post("https://safe-earth-53433.herokuapp.com/novo_evento",{photo:photo, nome:nome, descricao:descricao, data:data, pais:pais, estado:estado, cidade:cidade, endereco:endereco, activ:activ, food:food}, function(data){
+          $.post("http://localhost:3000/novo_evento",{photo:photo, nome:nome, descricao:descricao, data:data, pais:pais, estado:estado, cidade:cidade, endereco:endereco, activ:activ, food:food}, function(data){
             if(data==='done')
               {
                 alert("success");
