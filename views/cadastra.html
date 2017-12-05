@@ -38,7 +38,7 @@
           contact = $("#contact").val();
           activ = $("#activ").val();
           food = $("#food").val();
-          $.post("https://safe-earth-53433.herokuapp.com/signup",{photo:photo, name:name, email:email, password:password, pais:pais, estado:estado, cidade:cidade, address:address ,phone:phone, contact:contact, food:food, activ:activ}, function(data){
+          $.post("http://localhost:3000/signup",{photo:photo, name:name, email:email, password:password, pais:pais, estado:estado, cidade:cidade, address:address ,phone:phone, contact:contact, food:food, activ:activ}, function(data){
               if(data==='done'){
                   alert("success");
               }
