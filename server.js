@@ -193,7 +193,7 @@ app.get('/user/:usuario_id', function(req,res,next){
                 interesses.push("yoga");
             }
 
-            res.render('list_users',{users:results,lista_alimentar:alimentar, lista_atividade:atividades});
+            res.render('user',{users:results,lista_alimentar:alimentar, lista_atividade:atividades});
             atividades = [];
             interesses = [];
     }); 
@@ -209,12 +209,8 @@ app.get('/usuarios', function (req, res){
 
 
 app.get('/eventos', function (req, res){
-    console.log("Na pagina lista eventos...");
     connection.query('SELECT * FROM evento WHERE usuario_id != ?',[user_id], function (error, events, fields) {
         if (error) throw error;            
-        console.log("Quantidade de eventos de outros usuarios:");
-        console.log(events.length);
-        console.log(events);
         res.render('list_events', {events:events});
     });
 });
