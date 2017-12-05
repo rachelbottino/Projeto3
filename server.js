@@ -209,10 +209,19 @@ app.get('/usuarios', function (req, res){
 
 
 app.get('/eventos', function (req, res){
+    console.log("Na pagina lista eventos...");
     connection.query('SELECT * FROM evento WHERE usuario_id != ?',[user_id], function (error, events, fields) {
         if (error) throw error;            
+        console.log("Quantidade de eventos de outros usuarios:");
+        console.log(events.length);
+        console.log(events);
         res.render('list_events', {events:events});
     });
+});
+
+app.post('/eventos', function(req, res){
+    console.log(interesses);
+
 });
 
 // Criar usuário
