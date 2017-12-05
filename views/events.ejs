@@ -154,7 +154,7 @@
 								<form class="FiltrarForm" action="/editar_evento">
 								<center><a href="editar_evento/<%=events[evento].evento_id%>"><button class="form-control" class="btn btn-success" nome="EditarButton" id="EditarButton" value="<%=events[evento].evento_id%>">Editar</button></a></center>
 
-								<button class="form-control" class="btn btn-success" nome="DeleteButton" id="DeleteButton" value="<%=events[evento].evento_id%>"><a href="javascript:void(0)" onClick="delete_evento(<%=events[evento].evento_id%>)">Apagar</a></button>
+								<center><a href="javascript:void(0)" onClick="delete_evento(<%=events[evento].evento_id%>)"><button class="form-control" class="btn btn-success" nome="DeleteButton" id="DeleteButton" value="<%=events[evento].evento_id%>">Apagar</button></a></center>
 								<script type="text/javascript">
 								    
 								    function delete_evento(evento_id){
