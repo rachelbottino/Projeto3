@@ -27,7 +27,7 @@
         var filtro;
         $("#submit").click(function(){
           filtro=$("#filtro").val();
-          $.post("http://localhost:3000/usuarios",{filtro:filtro}, function(data){
+          $.post("https://safe-earth-53433.herokuapp.com/usuarios",{filtro:filtro}, function(data){
               if(data==='done'){
                   alert("success");
               }
@@ -106,7 +106,7 @@
 				<% for(var usuario = 0; usuario < users.length; usuario++){ %>
 				<li class="item">
 					<a class="nino-prettyPhoto" href="user/<%=users[usuario].usuario_id%>"/>
-						<img src="http://localhost:3000/<%=users[usuario].foto%>"/>
+						<img src="https://safe-earth-53433.herokuapp.com/<%=users[usuario].foto%>"/>
 						<div class="overlay">
 							<div class="content">
 								<i class="mdi mdi-account nino-icon"></i>
