@@ -143,7 +143,7 @@
 								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].endereco%>, <%=events[evento].cidade%>, <%=events[evento].estado%></a><br>
 								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
 								<form class="FiltrarForm" action="/editar_evento">
-								<center><a href="info_evento/<%=events[evento].evento_id%>"><button class="form-control" class="btn btn-success" nome="InfoButton" id="InfoButton" value="<%=events[evento].evento_id%>">Ver mais</button></a></center>
+								<button class="form-control" class="btn btn-success" nome="InfoButton" id="InfoButton" value="<%=events[evento].evento_id%>"><a href="info_evento/<%=events[evento].evento_id%>">Ver mais</button></a>
 								</form>
 							</div>
 						</article>
@@ -156,7 +156,8 @@
 			<br>
 			</div>
     	</div>
-    </section><!--/#seus_eventos--> 
+    </section><!--/#seus_eventos-->
+ 
 	
     <!-- Footer
     ================================================== -->
