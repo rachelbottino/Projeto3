@@ -215,7 +215,7 @@ app.get('/eventos', function (req, res){
         console.log("Quantidade de eventos de outros usuarios:");
         console.log(events.length);
         console.log(events);
-        res.render('list_events', {events:events, end_usuario:end_usuario});
+        res.render('list_events', {events:events});
     });
 });
 
