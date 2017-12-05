@@ -13,6 +13,7 @@ var interesses = [];
 var interesses_evento = [];
 var interesses_usuario = [];
 var usuarios = [];
+var end_usuario;
 var user_id;
 var filtro;
 /*Set EJS template Engine*/
@@ -29,7 +30,7 @@ app.use(fileUpload());
 var connection = mysql.createConnection({
     host : 'localhost',
     user : 'root',
-    password : 'rangobom971025',
+    password : 'adgjlra1',
     database : 'projeto3'
 })
 
@@ -112,6 +113,8 @@ app.get('/perfil', function(req, res) {
             atividades.push("Yoga");
             interesses.push("yoga");
         }
+        var endereco = results[0].endereco;
+        end_usuario = endereco.split(" ").join("+");
         res.render('home', {data:results, lista_alimentar:alimentar, lista_atividade:atividades});
         alimentar = [];
         atividades = [];
@@ -213,7 +216,7 @@ app.get('/eventos', function (req, res){
         console.log("Quantidade de eventos de outros usuarios:");
         console.log(events.length);
         console.log(events);
-        res.render('list_events', {events:events});
+        res.render('list_events', {events:events, end_usuario:end_usuario});
     });
 });
 
@@ -377,6 +380,71 @@ app.post('/novo_evento', function(req, res) {
 
 console.log(new_evento);
 
+});
+
+// Update eventos
+app.get('/info_evento/:evento_id', function(req,res,next){
+
+    var evento_id = req.params.evento_id;
+    //var evento_id = req.params.evento_id;
+
+    console.log("Info evento:");
+    console.log(evento_id);
+    connection.query("SELECT * FROM evento WHERE evento_id = ? ",[evento_id],function(err,rows){
+
+            if(err){
+                console.log(err);
+                return next("Mysql error, check your query");
+            }
+
+            //if user not found
+            if(rows.length < 1)
+                return res.send("Evento não encontrado");
+
+            var ev_atividades = [];
+            var ev_alimentar = [];
+
+            if(rows[0].low_carb == 's'){
+                ev_alimentar.push("Low Carb");
+            }
+            if(rows[0].vegano == 's'){
+                ev_alimentar.push("Vegana");
+            }
+            if(rows[0].vegetariano == 's'){
+                ev_alimentar.push("Vegetariana");
+            }
+            if(rows[0].sem_glutem == 's'){
+                ev_alimentar.push("Sem Glúten");
+            }
+            if(rows[0].sem_lactose == 's'){
+                ev_alimentar.push("Sem Lactose");
+            }
+
+            //faz lista de atividades físicas
+            if(rows[0].cross_fit == 's'){
+                ev_atividades.push("Cross Fit");
+            }
+            if(rows[0].esporte_coletivo == 's'){
+                ev_atividades.push("Esportes Coletivos");
+            }
+            if(rows[0].esporte_aventura == 's'){
+                ev_atividades.push("Esportes de Aventura");
+            }
+            if(rows[0].luta == 's'){
+                ev_atividades.push("Luta");
+            }
+            if(rows[0].yoga == 's'){
+                ev_atividades.push("Yoga");
+            }
+
+            var endereco = rows[0].endereco;
+            var end_evento = endereco.split(" ").join("+");
+            console.log(end_evento);
+            console.log(end_usuario);
+
+            res.render('evento',{title:"Infos evento",evento:rows, end_usuario:end_usuario, end_evento:end_evento, lista_atividade:ev_atividades, lista_alimentar:ev_alimentar});
+            console.log("Termina GET")
+    });
 });
 
 // Update eventos

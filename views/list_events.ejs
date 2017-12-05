@@ -143,6 +143,10 @@
 								<a><i class="mdi mdi-run nino-icon"></i><%=interesses_evento%></a><br>
 								<a><i class="mdi mdi-map-marker nino-icon"></i><%=events[evento].endereco%>, <%=events[evento].cidade%>, <%=events[evento].estado%></a><br>
 								<a><i class="mdi mdi-calendar nino-icon"></i><%=events[evento].data%></a>
+								<form class="FiltrarForm" action="/editar_evento">
+								<button class="form-control" class="btn btn-success" nome="InfoButton" id="InfoButton" value="<%=events[evento].evento_id%>"><a href="info_evento/<%=events[evento].evento_id%>">Ver mais</a></button>
+
+								</form>
 							</div>
 						</article>
 					</div>
@@ -155,6 +159,26 @@
 			</div>
     	</div>
     </section><!--/#seus_eventos-->
+
+       <!-- Map
+    ================================================== -->
+    <section id="nino-map">
+    	<div class="container">
+    		<h2 class="nino-sectionHeading">
+    			<i class="mdi mdi-map-marker nino-icon"></i>
+    			<span class="text">Open map</span>
+    			<span class="text" style="display: none;">Close map</span>
+    		</h2>
+    		<div class="mapWrap">
+    			<iframe
+  				width="600"
+  				height="450"
+  				frameborder="0" style="border:0"
+  				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDOx1AA-PnUiKf-9YGL8Ozx1hshfwnTNlk&q=<%=end_usuario%>" allowfullscreen>
+				</iframe>
+	    	</div>
+    	</div>
+    </section><!--/#nino-map--> 
 
  
 	
