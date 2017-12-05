@@ -29,9 +29,9 @@ app.use(fileUpload());
 /*MySql connection*/
 var connection = mysql.createConnection({
     host : 'us-cdbr-iron-east-05.cleardb.net',
-    user : 'bdbf6d6df359b5',
-    password : 'd9ccd38c',
-    database : 'heroku_1dc938df9144cb9'
+    user : 'bc308e38d445e6',
+    password : '52c59178',
+    database : 'heroku_ecd82971e73b594'
 })
 // var redis = require('redis');
 // var client = redis.createClient(6379, 'localhost');
