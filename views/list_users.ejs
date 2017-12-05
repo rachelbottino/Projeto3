@@ -22,20 +22,6 @@
 	<link rel="stylesheet" type="text/css" href="css/unslider.css" />
 	<link rel="stylesheet" type="text/css" href="css/template.css" />
 
-	<script>
-      $(document).ready(function(){
-        var filtro;
-        $("#submit").click(function(){
-          filtro=$("#filtro").val();
-          $.post("https://safe-earth-53433.herokuapp.com/usuarios",{filtro:filtro}, function(data){
-              if(data==='done'){
-                  alert("success");
-              }
-            });
-          });
-        });
-    </script>
-
 </head>
 
 <body data-target="#nino-navbar" data-spy="scroll">

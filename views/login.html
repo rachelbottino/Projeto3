@@ -29,7 +29,7 @@
         $("#submit").click(function(){    
           email=$("#email").val();
           senha=$("#senha").val();
-          $.post("https://safe-earth-53433.herokuapp.com/login",{email: email, senha: senha}, function(data){
+          $.post("http://localhost:3000/login",{email: email, senha: senha}, function(data){
             if(data==='done')
               {
                 alert("success");
