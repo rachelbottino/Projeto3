@@ -28,12 +28,11 @@ app.use(fileUpload());
 
 /*MySql connection*/
 var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'root',
-    password : 'adgjlra1',
-    database : 'projeto3'
+    host : 'us-cdbr-iron-east-05.cleardb.net',
+    user : 'bdbf6d6df359b5',
+    password : 'd9ccd38c',
+    database : 'heroku_1dc938df9144cb9'
 })
-
 // var redis = require('redis');
 // var client = redis.createClient(6379, 'localhost');
  
@@ -618,7 +617,5 @@ app.post('/editar_perfil/:usuario_id', function(req,res,next){
 
 
 //start Server
-var server = app.listen(3000,function(){
-    console.log("Servidor rodando na porta %s",server.address().port);
-
-});
+//start Server
+var server = app.listen(process.env.PORT || 3000); 
