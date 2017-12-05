@@ -323,6 +323,8 @@ app.post('/login', function(req, res) {
 app.post('/novo_evento', function(req, res) {
     console.log("novo evento usuario id:");
     console.log(user_id);
+    message = '';
+   if(req.method == "POST"){
 
     var file = req.files.foto;
     var img_name=file.name;
@@ -365,6 +367,10 @@ app.post('/novo_evento', function(req, res) {
                 });
                        });
           } else {
+            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
+            //res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
+          }
+   } else {
       res.redirect('/seus_eventos');
    }
  
