@@ -370,9 +370,6 @@ app.post('/novo_evento', function(req, res) {
  
 });
 
-console.log(new_evento);
-
-});
 
 // Update eventos
 app.get('/info_evento/:evento_id', function(req,res,next){
