@@ -365,10 +365,10 @@ app.post('/novo_evento', function(req, res) {
                 });
                        });
           } else {
-            message = "This format is not allowed , please upload file with '.png','.gif','.jpg'";
-            res.sendFile('views/signup.html' , { root : __dirname}, {message: message});
-          }
-
+      res.redirect('/seus_eventos');
+   }
+ 
+});
 
 console.log(new_evento);
 
